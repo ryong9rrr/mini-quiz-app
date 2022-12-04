@@ -1,9 +1,7 @@
 import React from "react";
-import { Helmet } from "react-helmet";
-import { ROUTE_PATHS } from "~/routes/paths";
 
 const ResultPage = () => {
-  return <Helmet title={ROUTE_PATHS.RESULT.title} />;
+  return <h1>퀴즈 결과 페이지</h1>;
 };
 
 export default ResultPage;
