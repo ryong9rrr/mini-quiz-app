@@ -8,33 +8,52 @@ const ROUTE_PATH_MAP = {
     pathUrl: "/",
     metaTitle: makeMetaTitle("퀴즈 시작하기"),
     pageElement: HomePage,
+    isProtected: false,
   },
   [QUIZ]: {
     pathUrl: "/quiz",
     metaTitle: makeMetaTitle("퀴즈 풀기"),
     pageElement: QuizPage,
+    isProtected: false,
   },
   [CHECK_NOTE]: {
     pathUrl: "/check-note",
     metaTitle: makeMetaTitle("오답노트"),
     pageElement: CheckNotePage,
+    isProtected: true,
   },
   [RESULT]: {
     pathUrl: "/result",
     metaTitle: makeMetaTitle("퀴즈 결과"),
     pageElement: ResultPage,
+    isProtected: true,
   },
   [NOT_FOUND]: {
     pathUrl: "*",
     metaTitle: makeMetaTitle("404"),
     pageElement: NotFoundPage,
+    isProtected: false,
   },
 } as const;
 
-export const getPathUrl = (pathName: PathName) => {
-  return ROUTE_PATH_MAP[pathName].pathUrl;
-};
+class RoutePath {
+  private routePathMap = ROUTE_PATH_MAP;
 
-export const getPath = (pathName: PathName) => {
-  return ROUTE_PATH_MAP[pathName];
-};
+  getPathUrl(pathName: PathName) {
+    return this.routePathMap[pathName].pathUrl;
+  }
+
+  getPageInfo(pathName: PathName) {
+    const { metaTitle, pageElement } = this.routePathMap[pathName];
+    return { metaTitle, pageElement };
+  }
+
+  hasAuthorization(pathName: PathName, isAuth: boolean) {
+    const { isProtected } = this.routePathMap[pathName];
+    return isProtected ? isProtected && isAuth : true;
+  }
+}
+
+const routePath = new RoutePath();
+
+export default routePath;
