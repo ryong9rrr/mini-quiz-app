@@ -1,7 +1,9 @@
 import React from "react";
+import { Helmet } from "react-helmet";
+import { ROUTE_PATHS } from "~/routes/paths";
 
 const CheckNotePage = () => {
-  return <h1>📝 오답노트</h1>;
+  return <Helmet title={ROUTE_PATHS.CHECK_NOTE.title} />;
 };
 
 export default CheckNotePage;
