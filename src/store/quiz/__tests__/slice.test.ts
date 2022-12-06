@@ -24,32 +24,27 @@ const mockQuizzes: IQuiz[] = [
 ];
 
 describe("quiz 리듀서 단위 테스트", () => {
-  test("상태를 초기화한다.", () => {
+  test("상태를 default로 초기화한다.", () => {
     const prevState: QuizState = {
       quizzes: [...mockQuizzes],
       currentQuizIndex: 1,
       wrongQuizIndexNumbers: [],
     };
 
-    expect(reducer(prevState, quizActions.init())).toEqual(initialQuizState);
+    const result: QuizState = initialQuizState;
+
+    expect(reducer(prevState, quizActions.init())).toEqual(result);
+  });
+
+  test("quizzes를 newQuizzes로 초기화한다.", () => {
+    const prevState: QuizState = { ...initialQuizState };
+    const nextQuizzes: IQuiz[] = [...mockQuizzes];
+    const result: QuizState = {
+      quizzes: nextQuizzes,
+      currentQuizIndex: 0,
+      wrongQuizIndexNumbers: [],
+    };
+
+    expect(reducer(prevState, quizActions.setQuizzes(nextQuizzes))).toEqual(result);
   });
 });
-
-// test('should handle a todo being added to an empty list', () => {
-//   const previousState: Todo[] = []
-
-//   expect(reducer(previousState, todoAdded('Run the tests'))).toEqual([
-//     { text: 'Run the tests', completed: false, id: 0 }
-//   ])
-// })
-
-// test('should handle a todo being added to an existing list', () => {
-//   const previousState: Todo[] = [
-//     { text: 'Run the tests', completed: true, id: 0 }
-//   ]
-
-//   expect(reducer(previousState, todoAdded('Use Redux'))).toEqual([
-//     { text: 'Run the tests', completed: true, id: 0 },
-//     { text: 'Use Redux', completed: false, id: 1 }
-//   ])
-// })
