@@ -107,4 +107,34 @@ describe("store/quiz 리듀서 단위 테스트", () => {
 
     expect(reducer(prevState, quizActions.selectAnswer(true))).toEqual(result);
   });
+
+  test("1페이지에서는 이전 페이지를 누르면 그대로 1페이지이다.", () => {
+    const prevState: QuizState = {
+      quizzes: [...mockQuizzes],
+      currentQuizIndex: 0,
+      wrongQuizIndexNumbers: [],
+    };
+
+    const result: QuizState = {
+      ...prevState,
+      currentQuizIndex: 0,
+    };
+
+    expect(reducer(prevState, quizActions.gePrevQuiz())).toEqual(result);
+  });
+
+  test("2페이지 이상에서 이전 페이지를 누르면 이전 페이지로 간다.", () => {
+    const prevState: QuizState = {
+      quizzes: [...mockQuizzes],
+      currentQuizIndex: 1,
+      wrongQuizIndexNumbers: [],
+    };
+
+    const result: QuizState = {
+      ...prevState,
+      currentQuizIndex: 0,
+    };
+
+    expect(reducer(prevState, quizActions.gePrevQuiz())).toEqual(result);
+  });
 });
