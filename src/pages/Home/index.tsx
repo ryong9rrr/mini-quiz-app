@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "~/components/common";
 import quizApi from "~/lib/services/quiz";
-import useQuiz from "~/store/useQuiz";
+import useQuiz from "~/store/hooks/useQuiz";
 
 const HomePage = () => {
   const [loading, setLoading] = useState(false);

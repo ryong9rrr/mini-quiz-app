@@ -1,7 +1,11 @@
 import { useCallback, useMemo } from "react";
+import { useDispatch } from "react-redux";
 import { IQuiz } from "~/lib/models";
-import { useQuizDispatch, useShallowSelector } from ".";
-import { quizActions } from "./quiz/slice";
+import { QuizDispatch } from "..";
+import { quizActions } from "../quiz/slice";
+import { useShallowSelector } from "../utils";
+
+const useQuizDispatch = () => useDispatch<QuizDispatch>();
 
 const useQuiz = () => {
   const quizState = useShallowSelector((state) => state.quiz);
