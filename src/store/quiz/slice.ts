@@ -24,7 +24,7 @@ const quizSlice = createSlice({
         return;
       }
       if (existingWrongQuizIndex > -1) {
-        state.wrongQuizIndexNumbers.slice(existingWrongQuizIndex, 1);
+        state.wrongQuizIndexNumbers.splice(existingWrongQuizIndex, 1);
       }
     },
     gePrevQuiz(state) {
