@@ -23,7 +23,7 @@ const mockQuizzes: IQuiz[] = [
   },
 ];
 
-describe("quiz 리듀서 단위 테스트", () => {
+describe("store/quiz 리듀서 단위 테스트", () => {
   test("상태를 default로 초기화한다.", () => {
     const prevState: QuizState = {
       quizzes: [...mockQuizzes],
@@ -46,5 +46,65 @@ describe("quiz 리듀서 단위 테스트", () => {
     };
 
     expect(reducer(prevState, quizActions.setQuizzes(nextQuizzes))).toEqual(result);
+  });
+
+  test("정답을 고르면 오답 인덱스가 추가되지 않는다.", () => {
+    const prevState: QuizState = {
+      quizzes: [...mockQuizzes],
+      currentQuizIndex: 1,
+      wrongQuizIndexNumbers: [],
+    };
+
+    const result: QuizState = {
+      ...prevState,
+      wrongQuizIndexNumbers: [],
+    };
+
+    expect(reducer(prevState, quizActions.selectAnswer(true))).toEqual(result);
+  });
+
+  test("정답을 골랐다가 오답을 고르면 오답 인덱스가 추가된다.", () => {
+    const prevState: QuizState = {
+      quizzes: [...mockQuizzes],
+      currentQuizIndex: 1,
+      wrongQuizIndexNumbers: [],
+    };
+
+    const result: QuizState = {
+      ...prevState,
+      wrongQuizIndexNumbers: [1],
+    };
+
+    expect(reducer(prevState, quizActions.selectAnswer(false))).toEqual(result);
+  });
+
+  test("오답을 고르면 오답 인덱스가 추가된다.", () => {
+    const prevState: QuizState = {
+      quizzes: [...mockQuizzes],
+      currentQuizIndex: 1,
+      wrongQuizIndexNumbers: [],
+    };
+
+    const result: QuizState = {
+      ...prevState,
+      wrongQuizIndexNumbers: [1],
+    };
+
+    expect(reducer(prevState, quizActions.selectAnswer(false))).toEqual(result);
+  });
+
+  test("오답을 골랐다가 정답을 고르면 오답 인덱스가 제거된다.", () => {
+    const prevState: QuizState = {
+      quizzes: [...mockQuizzes],
+      currentQuizIndex: 1,
+      wrongQuizIndexNumbers: [1],
+    };
+
+    const result: QuizState = {
+      ...prevState,
+      wrongQuizIndexNumbers: [],
+    };
+
+    expect(reducer(prevState, quizActions.selectAnswer(true))).toEqual(result);
   });
 });
