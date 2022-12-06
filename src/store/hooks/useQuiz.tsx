@@ -38,9 +38,9 @@ const useQuiz = () => {
     [quizState.quizzes, quizState.currentQuizIndex],
   );
 
-  const setQuizzes = useCallback(
+  const setNewQuizzes = useCallback(
     (newQuizzes: IQuiz[]) => {
-      dispatch(quizActions.setQuizzes(newQuizzes));
+      dispatch(quizActions.setNewQuizzes(newQuizzes));
     },
     [dispatch],
   );
@@ -67,7 +67,7 @@ const useQuiz = () => {
     correctQuizzesCount,
     wrongQuizzes,
     isCorrect,
-    setQuizzes,
+    setNewQuizzes,
     selectAnswer,
     goPrevQuiz,
     goNextQuiz,
