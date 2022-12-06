@@ -21,7 +21,9 @@ const useQuiz = () => {
   }, [quizState.quizzes, wrongQuizzesCount]);
 
   const wrongQuizzes = useMemo(() => {
-    return quizState.wrongQuizIndexNumbers.map((indexNumber) => quizState.quizzes[indexNumber]);
+    return quizState.wrongQuizIndexNumbers
+      .sort((a, b) => a - b)
+      .map((indexNumber) => quizState.quizzes[indexNumber]);
   }, [quizState.wrongQuizIndexNumbers, quizState.quizzes]);
 
   const isCorrect = useCallback(
@@ -47,7 +49,7 @@ const useQuiz = () => {
   );
 
   const goPrevQuiz = useCallback(() => {
-    dispatch(quizActions.gePrevQuiz());
+    dispatch(quizActions.goPrevQuiz());
   }, [dispatch]);
 
   const goNextQuiz = useCallback(() => {
