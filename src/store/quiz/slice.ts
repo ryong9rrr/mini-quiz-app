@@ -27,7 +27,7 @@ const quizSlice = createSlice({
         state.wrongQuizIndexNumbers.splice(existingWrongQuizIndex, 1);
       }
     },
-    gePrevQuiz(state) {
+    goPrevQuiz(state) {
       if (state.currentQuizIndex > 0) {
         state.currentQuizIndex -= 1;
         return;
