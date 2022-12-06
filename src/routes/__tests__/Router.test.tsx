@@ -7,7 +7,7 @@ import App from "~/App";
 import routePath from "../routePath";
 import { CHECK_NOTE, QUIZ, RESULT } from "../types";
 
-describe("Router 테스트", () => {
+describe("routes 테스트", () => {
   test("메인 페이지에 진입한다.", async () => {
     render(<App />, { wrapper: BrowserRouter });
     expect(screen.getByText("퀴즈 시작하기")).toBeInTheDocument();
@@ -37,7 +37,7 @@ describe("Router 테스트", () => {
     expect(screen.getByText("아직 퀴즈를 모두 풀지 않았어요!")).toBeInTheDocument();
   });
 
-  //TODO
+  // TODO
   // "퀴즈를 다 풀고 result 페이지에 진입한다."
 
   test("퀴즈를 다 풀지 않고 check-note 페이지에 진입한다.", () => {
@@ -52,7 +52,7 @@ describe("Router 테스트", () => {
     expect(screen.getByText("아직 퀴즈를 모두 풀지 않았어요!")).toBeInTheDocument();
   });
 
-  //TODO
+  // TODO
   // "퀴즈를 다 풀고 check-note 페이지에 진입한다."
 
   test("올바르지 않은 url로 접근하면 '404 Not Found'를 띄운다.", () => {
