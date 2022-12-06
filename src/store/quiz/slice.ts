@@ -6,11 +6,8 @@ const quizSlice = createSlice({
   name: "quiz",
   initialState: initialQuizState,
   reducers: {
-    init() {
-      return initialQuizState;
-    },
-    setQuizzes(state, { payload: newQuizzes }: PayloadAction<IQuiz[]>) {
-      state.quizzes = newQuizzes;
+    setNewQuizzes(state, { payload: newQuizzes }: PayloadAction<IQuiz[]>) {
+      return { ...initialQuizState, quizzes: newQuizzes };
     },
     selectAnswer(state, { payload: isAnswered }: PayloadAction<boolean>) {
       const existingWrongQuizIndex = state.wrongQuizIndexNumbers.findIndex(
