@@ -1,5 +1,5 @@
 import { IQuiz } from "~/lib/models";
-import { mockQuizzes } from "~/mock";
+import { mockQuizzes } from "~/test-utils/mock";
 import reducer, { quizActions } from "../slice";
 import { initialQuizState } from "../state";
 import { QuizState } from "../types";
