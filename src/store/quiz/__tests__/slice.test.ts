@@ -5,19 +5,7 @@ import { initialQuizState } from "../state";
 import { QuizState } from "../types";
 
 describe("store/quiz 리듀서 단위 테스트", () => {
-  test("상태를 default로 초기화한다.", () => {
-    const prevState: QuizState = {
-      quizzes: [...mockQuizzes],
-      currentQuizIndex: 1,
-      wrongQuizIndexNumbers: [],
-    };
-
-    const result: QuizState = initialQuizState;
-
-    expect(reducer(prevState, quizActions.init())).toEqual(result);
-  });
-
-  test("quizzes를 newQuizzes로 초기화한다.", () => {
+  test("새로운 퀴즈를 시작한다.", () => {
     const prevState: QuizState = { ...initialQuizState };
     const nextQuizzes: IQuiz[] = [...mockQuizzes];
     const result: QuizState = {
@@ -26,7 +14,7 @@ describe("store/quiz 리듀서 단위 테스트", () => {
       wrongQuizIndexNumbers: [],
     };
 
-    expect(reducer(prevState, quizActions.setQuizzes(nextQuizzes))).toEqual(result);
+    expect(reducer(prevState, quizActions.setNewQuizzes(nextQuizzes))).toEqual(result);
   });
 
   test("정답을 고르면 오답 인덱스가 추가되지 않는다.", () => {
