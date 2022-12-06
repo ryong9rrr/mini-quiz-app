@@ -25,7 +25,7 @@ const useQuiz = () => {
   }, [quizState.quizzes, wrongQuizzesCount]);
 
   const wrongQuizzes = useMemo(() => {
-    return quizState.wrongQuizIndexNumbers
+    return [...quizState.wrongQuizIndexNumbers]
       .sort((a, b) => a - b)
       .map((indexNumber) => quizState.quizzes[indexNumber]);
   }, [quizState.wrongQuizIndexNumbers, quizState.quizzes]);
