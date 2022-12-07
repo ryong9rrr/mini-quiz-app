@@ -1,11 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { CheckNote } from "~/components/quiz";
 import { useQuiz } from "~/modules/contexts/quiz";
 import QuizManager from "~/modules/quizManager";
 
 const CheckNotePage = () => {
-  const { quizzes, currentQuizIndex } = useQuiz();
+  const { quizzes, currentQuizIndex, wrongQuizIndexNumbers } = useQuiz();
   const isFinished = QuizManager.isFinished(quizzes.length, currentQuizIndex);
+  const wrongQuizzes = QuizManager.getWrongQuizzes(wrongQuizIndexNumbers, quizzes);
 
   if (!isFinished) {
     return (
@@ -19,7 +21,7 @@ const CheckNotePage = () => {
   return (
     <>
       <h1>오답 노트 페이지</h1>
-      <div>오답 노트</div>
+      <CheckNote wrongQuizzes={wrongQuizzes} />
     </>
   );
 };
