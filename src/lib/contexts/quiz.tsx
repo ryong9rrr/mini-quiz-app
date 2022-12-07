@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { IQuiz } from "../models";
 
 interface IQuizContext {
@@ -21,7 +21,9 @@ const initialQuizContext: IQuizContext = {
   },
 };
 
-export const QuizContext = React.createContext(initialQuizContext);
+const QuizContext = React.createContext(initialQuizContext);
+
+export const useQuiz = () => useContext(QuizContext);
 
 export const QuizContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [quizzes, setQuizzes] = useState<IQuiz[]>([]);
@@ -45,8 +47,14 @@ export const QuizContextProvider = ({ children }: { children: React.ReactNode })
           (a, b) => a - b,
         );
         setWrongQuizIndexNumbers(nextWrongQuizIndexNumbers);
+        window.sessionStorage.setItem(
+          "prev-wrongQuizIndexNumbers",
+          JSON.stringify(nextWrongQuizIndexNumbers),
+        );
       }
-      setCurrentQuizIndex((prev) => prev + 1);
+      const nextIndex = currentQuizIndex + 1;
+      setCurrentQuizIndex(nextIndex);
+      window.sessionStorage.setItem("prev-currentQuizIndex", JSON.stringify(nextIndex));
     },
     [currentQuizIndex, wrongQuizIndexNumbers],
   );

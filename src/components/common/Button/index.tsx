@@ -1,14 +1,14 @@
 import React, { ButtonHTMLAttributes } from "react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  text: string;
+  children: React.ReactNode;
   size?: "sm" | "md" | "lg";
 }
 
-const Button = ({ text, size = "md", ...props }: ButtonProps) => {
+const Button = ({ children, size = "md", ...props }: ButtonProps) => {
   return (
     <button type="button" {...props}>
-      {text}
+      {children}
     </button>
   );
 };
