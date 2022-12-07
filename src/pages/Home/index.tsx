@@ -1,24 +1,25 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "~/components/common";
 import quizApi from "~/lib/services/quiz";
-import useQuiz from "~/store/hooks/useQuiz";
+import { useQuiz } from "~/store/hooks";
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const { quizzes, setNewQuizzes } = useQuiz();
+  const { setNewQuizzes } = useQuiz();
 
   const handleStartButton = async () => {
     setLoading(true);
     const { results: newQuizzes } = await quizApi.getQuizzes();
-    setNewQuizzes(newQuizzes);
     setLoading(false);
+    setNewQuizzes(newQuizzes);
+    navigate("/quiz");
   };
 
   if (loading) {
-    return <h1>로딩 중...</h1>;
+    return <h1>퀴즈 생성 중...</h1>;
   }
-
-  console.log(quizzes);
 
   return (
     <>
