@@ -23,37 +23,28 @@ function setData<T>(key: string, value: T) {
   }
 }
 
-const getQuizzesData = (): IQuiz[] => {
-  return getData(QUIZZES, []);
-};
+export default class QuizStorage {
+  static getQuizzesData(): IQuiz[] {
+    return getData(QUIZZES, []);
+  }
 
-const setQuizzesData = (quizzes: IQuiz[]) => {
-  setData(QUIZZES, quizzes);
-};
+  static setQuizzesData(quizzes: IQuiz[]) {
+    setData(QUIZZES, quizzes);
+  }
 
-const getCurrentIndexData = (): number => {
-  return getData(CURRENT_QUIZ_INDEX, 0);
-};
+  static getCurrentIndexData(): number {
+    return getData(CURRENT_QUIZ_INDEX, 0);
+  }
 
-const setCurrentIndexData = (number: number) => {
-  setData(CURRENT_QUIZ_INDEX, number);
-};
+  static setCurrentIndexData(number: number) {
+    setData(CURRENT_QUIZ_INDEX, number);
+  }
 
-const getWrongQuizIndexNumbersData = (): number[] => {
-  return getData(WRONG_QUIZ_INDEX_NUMBERS, []);
-};
+  static getWrongQuizIndexNumbersData(): number[] {
+    return getData(WRONG_QUIZ_INDEX_NUMBERS, []);
+  }
 
-const setWrongQuizIndexNumbersData = (numbers: number[]) => {
-  setData(WRONG_QUIZ_INDEX_NUMBERS, numbers);
-};
-
-const quizStorage = {
-  getQuizzesData,
-  setQuizzesData,
-  getCurrentIndexData,
-  setCurrentIndexData,
-  getWrongQuizIndexNumbersData,
-  setWrongQuizIndexNumbersData,
-};
-
-export default quizStorage;
+  static setWrongQuizIndexNumbersData(numbers: number[]) {
+    setData(WRONG_QUIZ_INDEX_NUMBERS, numbers);
+  }
+}

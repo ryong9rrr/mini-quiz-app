@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { IQuiz } from "../../lib/models";
-import quizStorage from "../storage/quizSesstionStorage";
+import QuizStorage from "../storage/quizSesstionStorage";
 
 interface IQuizContext {
   quizzes: IQuiz[];
@@ -14,9 +14,11 @@ const initialQuizContext: IQuizContext = {
   quizzes: [],
   currentQuizIndex: 0,
   wrongQuizIndexNumbers: [],
+  // eslint-disable-next-line
   setNewQuizzes(newQuizzes: IQuiz[]) {
     return;
   },
+  // eslint-disable-next-line
   goNextQuiz(isAnswered: boolean) {
     return;
   },
@@ -26,28 +28,41 @@ const QuizContext = React.createContext(initialQuizContext);
 
 export const useQuiz = () => useContext(QuizContext);
 
-export const QuizContextProvider = ({ children }: { children: React.ReactNode }) => {
+export const QuizContextProvider = ({
+  children,
+  hasStorage = true,
+}: {
+  children: React.ReactNode;
+  hasStorage?: boolean;
+}) => {
   const [quizzes, setQuizzes] = useState<IQuiz[]>([]);
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [wrongQuizIndexNumbers, setWrongQuizIndexNumbers] = useState<number[]>([]);
 
-  const setNewQuizzes = useCallback((newQuizzes: IQuiz[]) => {
-    setQuizzes(newQuizzes);
-    setCurrentQuizIndex(0);
-    setWrongQuizIndexNumbers([]);
+  const setNewQuizzes = useCallback(
+    (newQuizzes: IQuiz[]) => {
+      setQuizzes(newQuizzes);
+      setCurrentQuizIndex(0);
+      setWrongQuizIndexNumbers([]);
 
-    quizStorage.setQuizzesData(newQuizzes);
-    quizStorage.setCurrentIndexData(0);
-    quizStorage.setWrongQuizIndexNumbersData([]);
-  }, []);
+      if (hasStorage) {
+        QuizStorage.setQuizzesData(newQuizzes);
+        QuizStorage.setCurrentIndexData(0);
+        QuizStorage.setWrongQuizIndexNumbersData([]);
+      }
+    },
+    [hasStorage],
+  );
 
   const setWrongAnswers = useCallback(() => {
     const nextWrongQuizIndexNumbers = [...wrongQuizIndexNumbers, currentQuizIndex].sort(
       (a, b) => a - b,
     );
     setWrongQuizIndexNumbers(nextWrongQuizIndexNumbers);
-    quizStorage.setWrongQuizIndexNumbersData(nextWrongQuizIndexNumbers);
-  }, [currentQuizIndex, wrongQuizIndexNumbers]);
+    if (hasStorage) {
+      QuizStorage.setWrongQuizIndexNumbersData(nextWrongQuizIndexNumbers);
+    }
+  }, [currentQuizIndex, wrongQuizIndexNumbers, hasStorage]);
 
   const goNextQuiz = useCallback(
     (isAnswered: boolean) => {
@@ -56,16 +71,20 @@ export const QuizContextProvider = ({ children }: { children: React.ReactNode })
       }
       const nextIndex = currentQuizIndex + 1;
       setCurrentQuizIndex(nextIndex);
-      quizStorage.setCurrentIndexData(nextIndex);
+      if (hasStorage) {
+        QuizStorage.setCurrentIndexData(nextIndex);
+      }
     },
-    [currentQuizIndex, setWrongAnswers],
+    [currentQuizIndex, setWrongAnswers, hasStorage],
   );
 
   useEffect(() => {
-    setQuizzes(quizStorage.getQuizzesData());
-    setCurrentQuizIndex(quizStorage.getCurrentIndexData());
-    setWrongQuizIndexNumbers(quizStorage.getWrongQuizIndexNumbersData());
-  }, []);
+    if (hasStorage) {
+      setQuizzes(QuizStorage.getQuizzesData());
+      setCurrentQuizIndex(QuizStorage.getCurrentIndexData());
+      setWrongQuizIndexNumbers(QuizStorage.getWrongQuizIndexNumbersData());
+    }
+  }, [hasStorage]);
 
   const contextValue = useMemo(
     () => ({
