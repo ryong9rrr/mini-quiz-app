@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { RandomQuizList } from "~/components/quiz";
-import { useQuiz } from "~/lib/contexts/quiz";
+import { useQuiz } from "~/modules/contexts/quiz";
 
 const QuizPage = () => {
   const { quizzes, currentQuizIndex, goNextQuiz } = useQuiz();

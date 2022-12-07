@@ -1,5 +1,6 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { IQuiz } from "../models";
+import { IQuiz } from "../../lib/models";
+import quizStorage from "../storage/quizSesstionStorage";
 
 interface IQuizContext {
   quizzes: IQuiz[];
@@ -35,42 +36,35 @@ export const QuizContextProvider = ({ children }: { children: React.ReactNode })
     setCurrentQuizIndex(0);
     setWrongQuizIndexNumbers([]);
 
-    window.sessionStorage.setItem("prev-quizzes", JSON.stringify(newQuizzes));
-    window.sessionStorage.setItem("prev-currentQuizIndex", JSON.stringify(0));
-    window.sessionStorage.setItem("prev-wrongQuizIndexNumbers", JSON.stringify([]));
+    quizStorage.setQuizzesData(newQuizzes);
+    quizStorage.setCurrentIndexData(0);
+    quizStorage.setWrongQuizIndexNumbersData([]);
   }, []);
+
+  const setWrongAnswers = useCallback(() => {
+    const nextWrongQuizIndexNumbers = [...wrongQuizIndexNumbers, currentQuizIndex].sort(
+      (a, b) => a - b,
+    );
+    setWrongQuizIndexNumbers(nextWrongQuizIndexNumbers);
+    quizStorage.setWrongQuizIndexNumbersData(nextWrongQuizIndexNumbers);
+  }, [currentQuizIndex, wrongQuizIndexNumbers]);
 
   const goNextQuiz = useCallback(
     (isAnswered: boolean) => {
       if (!isAnswered) {
-        const nextWrongQuizIndexNumbers = [...wrongQuizIndexNumbers, currentQuizIndex].sort(
-          (a, b) => a - b,
-        );
-        setWrongQuizIndexNumbers(nextWrongQuizIndexNumbers);
-        window.sessionStorage.setItem(
-          "prev-wrongQuizIndexNumbers",
-          JSON.stringify(nextWrongQuizIndexNumbers),
-        );
+        setWrongAnswers();
       }
       const nextIndex = currentQuizIndex + 1;
       setCurrentQuizIndex(nextIndex);
-      window.sessionStorage.setItem("prev-currentQuizIndex", JSON.stringify(nextIndex));
+      quizStorage.setCurrentIndexData(nextIndex);
     },
-    [currentQuizIndex, wrongQuizIndexNumbers],
+    [currentQuizIndex, setWrongAnswers],
   );
 
   useEffect(() => {
-    const prevQuizzesData = window.sessionStorage.getItem("prev-quizzes");
-    const prevCurrentQuizIndexData = window.sessionStorage.getItem("prev-currentQuizIndex");
-    const prevWrongQuizIndexNumbersData = window.sessionStorage.getItem(
-      "prev-wrongQuizIndexNumbers",
-    );
-
-    setQuizzes(prevQuizzesData ? JSON.parse(prevQuizzesData) : []);
-    setCurrentQuizIndex(prevCurrentQuizIndexData ? JSON.parse(prevCurrentQuizIndexData) : 0);
-    setWrongQuizIndexNumbers(
-      prevWrongQuizIndexNumbersData ? JSON.parse(prevWrongQuizIndexNumbersData) : [],
-    );
+    setQuizzes(quizStorage.getQuizzesData());
+    setCurrentQuizIndex(quizStorage.getCurrentIndexData());
+    setWrongQuizIndexNumbers(quizStorage.getWrongQuizIndexNumbersData());
   }, []);
 
   const contextValue = useMemo(

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "~/components/common";
-import { useQuiz } from "~/lib/contexts/quiz";
+import { useQuiz } from "~/modules/contexts/quiz";
 import quizApi from "~/lib/services/quiz";
 
 const HomePage = () => {

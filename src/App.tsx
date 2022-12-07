@@ -1,5 +1,5 @@
 import React from "react";
-import { QuizContextProvider } from "./lib/contexts/quiz";
+import { QuizContextProvider } from "./modules/contexts/quiz";
 import Router from "./router";
 
 const App = () => {
