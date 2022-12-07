@@ -7,20 +7,17 @@ const QuizPage = () => {
   const navigate = useNavigate();
   const { quizzes, currentQuizIndex, goNextQuiz } = useQuiz();
   const currentQuiz = quizzes[currentQuizIndex];
+  const currentQuizNumber = currentQuizIndex + 1;
+  const isLast = currentQuizIndex + 1 === quizzes.length;
 
   const handleClickNextQuiz = (isSelected: boolean, isCorrect: boolean) => {
     if (!isSelected) {
       return;
     }
     goNextQuiz(isCorrect);
-  };
-
-  const handleClickShowResult = (isSelected: boolean, isCorrect: boolean) => {
-    if (!isSelected) {
-      return;
+    if (isLast) {
+      navigate("/result");
     }
-    goNextQuiz(isCorrect);
-    navigate("/result");
   };
 
   if (!currentQuiz) {
@@ -34,11 +31,10 @@ const QuizPage = () => {
 
   return (
     <Quiz
-      quizNumber={currentQuizIndex + 1}
-      isLast={currentQuizIndex + 1 === quizzes.length}
+      quizNumber={currentQuizNumber}
+      isLast={isLast}
       currentQuiz={currentQuiz}
       onClickNextQuiz={handleClickNextQuiz}
-      onClickShowResult={handleClickShowResult}
     />
   );
 };

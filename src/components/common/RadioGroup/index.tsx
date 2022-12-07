@@ -1,19 +1,19 @@
 import React, { ChangeEvent } from "react";
 
-interface RadioProps {
+interface RadioGroupProps {
   name: string;
   options: string[];
   selectedValue: string;
   onSelect: (value: string) => void;
 }
 
-const Radio = ({ name, options, selectedValue, onSelect }: RadioProps) => {
+const RadioGroup = ({ name, options, selectedValue, onSelect }: RadioGroupProps) => {
   const handleSelect = (e: ChangeEvent<HTMLInputElement>) => {
     onSelect(e.target.value);
   };
 
   return (
-    <div>
+    <ul>
       {options.map((option) => (
         <li key={option}>
           <input
@@ -27,8 +27,8 @@ const Radio = ({ name, options, selectedValue, onSelect }: RadioProps) => {
           <label htmlFor={option}>{option}</label>
         </li>
       ))}
-    </div>
+    </ul>
   );
 };
 
-export default Radio;
+export default RadioGroup;

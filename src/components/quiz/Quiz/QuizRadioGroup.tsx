@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Radio } from "~/components/common";
+import { RadioGroup } from "~/components/common";
 
-interface QuizSelectBoxProps {
+interface QuizRadioGroupProps {
   correctAnswer: string;
   inCorrectAnswers: string[];
   onSelectAnswer: (selectedAnswer: string) => void;
@@ -11,8 +11,12 @@ const makeRandom = (answers: string[]) => {
   return [...answers].sort();
 };
 
-const QuizSelectBox = ({ correctAnswer, inCorrectAnswers, onSelectAnswer }: QuizSelectBoxProps) => {
-  const [selectedValue, setSelectedValue] = useState<string>("");
+const QuizRadioGroup = ({
+  correctAnswer,
+  inCorrectAnswers,
+  onSelectAnswer,
+}: QuizRadioGroupProps) => {
+  const [selectedValue, setSelectedValue] = useState("");
   const answers = makeRandom([...inCorrectAnswers, correctAnswer]);
 
   const handleSelect = (value: string) => {
@@ -21,10 +25,13 @@ const QuizSelectBox = ({ correctAnswer, inCorrectAnswers, onSelectAnswer }: Quiz
   };
 
   return (
-    <ul>
-      <Radio name="quiz" options={answers} selectedValue={selectedValue} onSelect={handleSelect} />
-    </ul>
+    <RadioGroup
+      name="quiz"
+      options={answers}
+      selectedValue={selectedValue}
+      onSelect={handleSelect}
+    />
   );
 };
 
-export default QuizSelectBox;
+export default QuizRadioGroup;

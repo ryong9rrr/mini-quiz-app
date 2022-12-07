@@ -2,36 +2,27 @@ import React, { useEffect, useState } from "react";
 import { IQuiz } from "~/lib/models";
 import QuizManager from "~/modules/quizManager";
 import QuizFeedback from "./QuizFeedback";
-import QuizRadio from "./QuizRadio";
+import QuizRadioGroup from "./QuizRadioGroup";
 
 interface QuizProps {
   quizNumber: number;
   isLast: boolean;
   currentQuiz: IQuiz;
   onClickNextQuiz: (isSelected: boolean, isCorrect: boolean) => void;
-  onClickShowResult: (isSelected: boolean, isCorrect: boolean) => void;
 }
 
-const Quiz = ({
-  quizNumber,
-  isLast,
-  currentQuiz,
-  onClickNextQuiz,
-  onClickShowResult,
-}: QuizProps) => {
+const Quiz = ({ quizNumber, isLast, currentQuiz, onClickNextQuiz }: QuizProps) => {
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const isCorrect = QuizManager.isCorrect(currentQuiz, selectedAnswer);
+  const isSelected = !!selectedAnswer;
+  const nextButtonDisabled = !selectedAnswer;
 
-  const handleSelectAnswer = (answer: string) => {
+  const handleSelectRadio = (answer: string) => {
     setSelectedAnswer(answer);
   };
 
   const handleClickNextQuiz = () => {
-    onClickNextQuiz(!!selectedAnswer, isCorrect);
-  };
-
-  const handleClickShowResult = () => {
-    onClickShowResult(!!selectedAnswer, isCorrect);
+    onClickNextQuiz(isSelected, isCorrect);
   };
 
   useEffect(() => {
@@ -40,23 +31,17 @@ const Quiz = ({
 
   return (
     <>
-      <QuizFeedback isSelected={!!selectedAnswer} isCorrect={isCorrect} />
+      <QuizFeedback isSelected={isSelected} isCorrect={isCorrect} />
       <h1>{quizNumber} 번 문제</h1>
       <h2>{currentQuiz.question}</h2>
-      <QuizRadio
+      <QuizRadioGroup
         correctAnswer={currentQuiz.correct_answer}
         inCorrectAnswers={currentQuiz.incorrect_answers}
-        onSelectAnswer={handleSelectAnswer}
+        onSelectAnswer={handleSelectRadio}
       />
-      {isLast ? (
-        <button type="button" onClick={handleClickShowResult} disabled={!selectedAnswer}>
-          결과 보기
-        </button>
-      ) : (
-        <button type="button" onClick={handleClickNextQuiz} disabled={!selectedAnswer}>
-          다음 문제
-        </button>
-      )}
+      <button type="button" onClick={handleClickNextQuiz} disabled={nextButtonDisabled}>
+        {isLast ? "결과 보기" : "다음 문제"}
+      </button>
     </>
   );
 };
