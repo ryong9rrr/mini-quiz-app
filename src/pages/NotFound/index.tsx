@@ -1,7 +1,13 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 
 const NotFoundPage = () => {
-  return <h1>404 Not Found</h1>;
+  return (
+    <>
+      <Helmet title="404 | Mini-Quiz" />
+      <h1>404 Not Found</h1>
+    </>
+  );
 };
 
 export default NotFoundPage;

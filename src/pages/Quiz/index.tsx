@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Quiz } from "~/components/quiz";
 import { useQuiz } from "~/modules/contexts/quiz";
@@ -23,6 +24,7 @@ const QuizPage = () => {
   if (!currentQuiz) {
     return (
       <>
+        <Helmet title="퀴즈 | Mini-Quiz" />
         <h1>풀고 있는 퀴즈가 없습니다. 홈으로 이동합니다.</h1>
         <NavLink to="/">홈으로</NavLink>
       </>
@@ -30,12 +32,15 @@ const QuizPage = () => {
   }
 
   return (
-    <Quiz
-      quizNumber={currentQuizNumber}
-      isLast={isLast}
-      currentQuiz={currentQuiz}
-      onClickNextQuiz={handleClickNextQuiz}
-    />
+    <>
+      <Helmet title="퀴즈 | Mini-Quiz" />
+      <Quiz
+        quizNumber={currentQuizNumber}
+        isLast={isLast}
+        currentQuiz={currentQuiz}
+        onClickNextQuiz={handleClickNextQuiz}
+      />
+    </>
   );
 };
 
