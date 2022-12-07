@@ -1,14 +1,16 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { QuizResult } from "~/components/quiz";
+import { getElapsedTime } from "~/lib/utils";
 import { useQuiz } from "~/modules/contexts/quiz";
 import QuizManager from "~/modules/quizManager";
 
 const ResultPage = () => {
-  const { quizzes, currentQuizIndex, wrongQuizIndexNumbers } = useQuiz();
+  const { quizzes, currentQuizIndex, wrongQuizIndexNumbers, startTime } = useQuiz();
   const isFinished = QuizManager.isFinished(quizzes.length, currentQuizIndex);
   const inCorrectCount = QuizManager.getWrongQuizzes(wrongQuizIndexNumbers, quizzes).length;
   const correctCount = quizzes.length - inCorrectCount;
+  const times = getElapsedTime(startTime);
 
   if (!isFinished) {
     return (
@@ -24,11 +26,7 @@ const ResultPage = () => {
       <h1>퀴즈 결과 페이지</h1>
       <h2>수고하셨습니다.</h2>
       <NavLink to="/">새로운 퀴즈 풀기</NavLink>
-      <QuizResult
-        time="1시간 30분 21초"
-        correctCount={correctCount}
-        inCorrectCount={inCorrectCount}
-      />
+      <QuizResult time={times} correctCount={correctCount} inCorrectCount={inCorrectCount} />
     </>
   );
 };

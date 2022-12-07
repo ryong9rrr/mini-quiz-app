@@ -3,6 +3,7 @@ import { IQuiz } from "../../lib/models";
 import QuizStorage from "../storage/quizSesstionStorage";
 
 interface IQuizContext {
+  startTime: number;
   quizzes: IQuiz[];
   currentQuizIndex: number;
   wrongQuizIndexNumbers: number[];
@@ -11,6 +12,7 @@ interface IQuizContext {
 }
 
 const initialQuizContext: IQuizContext = {
+  startTime: Date.now(),
   quizzes: [],
   currentQuizIndex: 0,
   wrongQuizIndexNumbers: [],
@@ -35,6 +37,7 @@ export const QuizContextProvider = ({
   children: React.ReactNode;
   hasStorage?: boolean;
 }) => {
+  const [startTime, setStartTime] = useState(Date.now());
   const [quizzes, setQuizzes] = useState<IQuiz[]>([]);
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [wrongQuizIndexNumbers, setWrongQuizIndexNumbers] = useState<number[]>([]);
@@ -44,6 +47,7 @@ export const QuizContextProvider = ({
       setQuizzes(newQuizzes);
       setCurrentQuizIndex(0);
       setWrongQuizIndexNumbers([]);
+      setStartTime(Date.now());
 
       if (hasStorage) {
         QuizStorage.setQuizzesData(newQuizzes);
@@ -88,13 +92,14 @@ export const QuizContextProvider = ({
 
   const contextValue = useMemo(
     () => ({
+      startTime,
       quizzes,
       currentQuizIndex,
       wrongQuizIndexNumbers,
       setNewQuizzes,
       goNextQuiz,
     }),
-    [quizzes, currentQuizIndex, wrongQuizIndexNumbers, setNewQuizzes, goNextQuiz],
+    [startTime, quizzes, currentQuizIndex, wrongQuizIndexNumbers, setNewQuizzes, goNextQuiz],
   );
 
   return <QuizContext.Provider value={contextValue}>{children}</QuizContext.Provider>;
