@@ -5,8 +5,21 @@ import { initialQuizState } from "../state";
 import { QuizState } from "../types";
 
 describe("store/quiz 리듀서 단위 테스트", () => {
+  test("이전 상태가 있다면 모든상태를 이전 상태로 초기화한다.", () => {
+    const prevState: QuizState = {
+      quizzes: [...mockQuizzes],
+      currentQuizIndex: 1,
+      wrongQuizIndexNumbers: [0],
+    };
+
+    expect(reducer(initialQuizState, quizActions.preFetch(prevState))).toEqual(prevState);
+  });
+
+  test("이전 상태가 없다면 디폴트 상태로 초기화한다.", () => {
+    expect(reducer(initialQuizState, quizActions.preFetch(null))).toEqual(initialQuizState);
+  });
+
   test("새로운 퀴즈를 시작한다.", () => {
-    const prevState: QuizState = { ...initialQuizState };
     const nextQuizzes: IQuiz[] = [...mockQuizzes];
     const result: QuizState = {
       quizzes: nextQuizzes,
@@ -14,7 +27,7 @@ describe("store/quiz 리듀서 단위 테스트", () => {
       wrongQuizIndexNumbers: [],
     };
 
-    expect(reducer(prevState, quizActions.setNewQuizzes(nextQuizzes))).toEqual(result);
+    expect(reducer(initialQuizState, quizActions.setNewQuizzes(nextQuizzes))).toEqual(result);
   });
 
   test("정답을 고르면 오답 인덱스가 추가되지 않는다.", () => {
