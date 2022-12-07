@@ -1,9 +1,10 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { RandomQuizList } from "~/components/quiz";
 import { useQuiz } from "~/modules/contexts/quiz";
 
 const QuizPage = () => {
+  const navigate = useNavigate();
   const { quizzes, currentQuizIndex, goNextQuiz } = useQuiz();
   const currentQuiz = quizzes[currentQuizIndex];
 
@@ -11,6 +12,14 @@ const QuizPage = () => {
     const isSelected = true;
     if (isSelected) {
       goNextQuiz(true);
+    }
+  };
+
+  const handleGoResultPage = () => {
+    const isSelected = true;
+    if (isSelected) {
+      goNextQuiz(true);
+      navigate("/result");
     }
   };
 
@@ -32,7 +41,9 @@ const QuizPage = () => {
         inCorrectAnswers={currentQuiz.incorrect_answers}
       />
       {currentQuizIndex + 1 === quizzes.length ? (
-        <button type="button">결과 보기</button>
+        <button type="button" onClick={handleGoResultPage}>
+          결과 보기
+        </button>
       ) : (
         <button type="button" onClick={handleGoNextQuiz}>
           다음 문제
