@@ -1,5 +1,5 @@
+import QuizManager from "~/modules/quizManager";
 import { mockQuizzes } from "~/test-utils/mock";
-import QuizManager from "../quizManager";
 
 describe("퀴즈 기능 테스트", () => {
   test("isFinished - 문제를 다 풀지 않았다면 false를 반환한다.", () => {
