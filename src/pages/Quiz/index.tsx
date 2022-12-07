@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { RandomQuizList } from "~/components/quiz";
+import { Quiz } from "~/components/quiz";
 import { useQuiz } from "~/modules/contexts/quiz";
 
 const QuizPage = () => {
@@ -8,19 +8,19 @@ const QuizPage = () => {
   const { quizzes, currentQuizIndex, goNextQuiz } = useQuiz();
   const currentQuiz = quizzes[currentQuizIndex];
 
-  const handleGoNextQuiz = () => {
-    const isSelected = true;
-    if (isSelected) {
-      goNextQuiz(true);
+  const handleClickNextQuiz = (isSelected: boolean, isCorrect: boolean) => {
+    if (!isSelected) {
+      return;
     }
+    goNextQuiz(isCorrect);
   };
 
-  const handleGoResultPage = () => {
-    const isSelected = true;
-    if (isSelected) {
-      goNextQuiz(true);
-      navigate("/result");
+  const handleClickShowResult = (isSelected: boolean, isCorrect: boolean) => {
+    if (!isSelected) {
+      return;
     }
+    goNextQuiz(isCorrect);
+    navigate("/result");
   };
 
   if (!currentQuiz) {
@@ -33,23 +33,13 @@ const QuizPage = () => {
   }
 
   return (
-    <>
-      <h1>{currentQuizIndex + 1} 번 문제</h1>
-      <h2>{currentQuiz.question}</h2>
-      <RandomQuizList
-        correctAnswer={currentQuiz.correct_answer}
-        inCorrectAnswers={currentQuiz.incorrect_answers}
-      />
-      {currentQuizIndex + 1 === quizzes.length ? (
-        <button type="button" onClick={handleGoResultPage}>
-          결과 보기
-        </button>
-      ) : (
-        <button type="button" onClick={handleGoNextQuiz}>
-          다음 문제
-        </button>
-      )}
-    </>
+    <Quiz
+      quizNumber={currentQuizIndex + 1}
+      isLast={currentQuizIndex + 1 === quizzes.length}
+      currentQuiz={currentQuiz}
+      onClickNextQuiz={handleClickNextQuiz}
+      onClickShowResult={handleClickShowResult}
+    />
   );
 };
 
