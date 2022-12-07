@@ -1,7 +1,7 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import { act, renderHook } from "@testing-library/react";
-import { mockQuizzes } from "~/testing/mock";
+import { mockQuizzes } from "~/test-utils/mock";
 import { QuizContextProvider, useQuiz } from "./quiz";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
