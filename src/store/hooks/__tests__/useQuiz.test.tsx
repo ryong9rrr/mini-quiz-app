@@ -4,8 +4,7 @@ import { mockQuizzes } from "~/test-utils/mock";
 import { act, renderHook, RenderResult } from "@testing-library/react-hooks";
 import { Provider } from "react-redux";
 import store from "~/store";
-import { QuizState } from "~/store/quiz/types";
-import { initialQuizState } from "~/store/quiz/state";
+import { initialQuizState, QuizState } from "~/store/quiz";
 import useQuiz from "../useQuiz";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (

@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import quizReducer from "./quiz/slice";
+import { quizReducer } from "./quiz";
 
 const store = configureStore({
   reducer: {
