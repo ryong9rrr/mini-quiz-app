@@ -1,14 +1,8 @@
 import React from "react";
-import { Provider } from "react-redux";
 import Router from "./router";
-import store from "./store";
 
 const App = () => {
-  return (
-    <Provider store={store}>
-      <Router />
-    </Provider>
-  );
+  return <Router />;
 };
 
 export default App;
