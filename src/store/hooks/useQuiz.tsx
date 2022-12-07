@@ -1,13 +1,14 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { IQuiz } from "~/lib/models";
 import { QuizDispatch } from "..";
-import { quizActions } from "../quiz/slice";
+import { quizActions, QuizState } from "../quiz";
+import { IQuizStorage } from "../storage/quizStorage";
 import { useShallowSelector } from "../utils";
 
 const useQuizDispatch = () => useDispatch<QuizDispatch>();
 
-const useQuiz = () => {
+const useQuiz = (storage?: IQuizStorage) => {
   const quizState = useShallowSelector((state) => state.quiz);
   const dispatch = useQuizDispatch();
 
@@ -38,27 +39,49 @@ const useQuiz = () => {
     [quizState.quizzes, quizState.currentQuizIndex],
   );
 
+  const preFetch = useCallback(
+    (prevState: QuizState | null) => {
+      dispatch(quizActions.preFetch(prevState));
+      storage?.setData(quizState);
+    },
+    [dispatch, storage, quizState],
+  );
+
   const setNewQuizzes = useCallback(
     (newQuizzes: IQuiz[]) => {
       dispatch(quizActions.setNewQuizzes(newQuizzes));
+      storage?.setData(quizState);
     },
-    [dispatch],
+    [dispatch, storage, quizState],
   );
 
   const selectAnswer = useCallback(
     (isAnswered: boolean) => {
       dispatch(quizActions.selectAnswer(isAnswered));
+      storage?.setData(quizState);
     },
-    [dispatch],
+    [dispatch, storage, quizState],
   );
 
   const goPrevQuiz = useCallback(() => {
     dispatch(quizActions.goPrevQuiz());
-  }, [dispatch]);
+    storage?.setData(quizState);
+  }, [dispatch, storage, quizState]);
 
   const goNextQuiz = useCallback(() => {
     dispatch(quizActions.goNextQuiz());
-  }, [dispatch]);
+    storage?.setData(quizState);
+  }, [dispatch, storage, quizState]);
+
+  useEffect(() => {
+    if (!storage) {
+      return;
+    }
+    const prevState = storage.getData();
+    if (prevState) {
+      preFetch(prevState);
+    }
+  }, [preFetch, storage]);
 
   return {
     ...quizState,
@@ -66,6 +89,7 @@ const useQuiz = () => {
     wrongQuizzesCount,
     correctQuizzesCount,
     wrongQuizzes,
+    preFetch,
     isCorrect,
     setNewQuizzes,
     selectAnswer,
