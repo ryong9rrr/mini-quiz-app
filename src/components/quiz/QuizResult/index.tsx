@@ -10,7 +10,6 @@ interface QuizResultProps {
 const QuizResult = ({ time, correctCount, inCorrectCount }: QuizResultProps) => {
   return (
     <>
-      <h1>수고하셨습니다.</h1>
       <div>소요 시간 : {time}</div>
       <div>맞은 문제 {correctCount}개</div>
       <div>

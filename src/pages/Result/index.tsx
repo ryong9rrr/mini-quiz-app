@@ -22,6 +22,8 @@ const ResultPage = () => {
   return (
     <>
       <h1>퀴즈 결과 페이지</h1>
+      <h2>수고하셨습니다.</h2>
+      <NavLink to="/">새로운 퀴즈 풀기</NavLink>
       <QuizResult
         time="1시간 30분 21초"
         correctCount={correctCount}

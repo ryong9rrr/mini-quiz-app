@@ -2,7 +2,7 @@ import React from "react";
 import "@testing-library/jest-dom";
 import { act, renderHook } from "@testing-library/react";
 import { mockQuizzes } from "~/test-utils/mock";
-import { QuizContextProvider, useQuiz } from "./quiz";
+import { QuizContextProvider, useQuiz } from "../contexts/quiz";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
   <QuizContextProvider hasStorage={false}>{children}</QuizContextProvider>
@@ -14,7 +14,7 @@ const startQuiz = (result: { current: ReturnType<typeof useQuiz> }) => {
   });
 };
 
-describe("useQuiz 기능 테스트", () => {
+describe("QuizContext 상태 변경 테스트", () => {
   test("새로운 퀴즈를 시작한다.", () => {
     const { result } = renderHook(() => useQuiz(), { wrapper });
     startQuiz(result);
