@@ -8,7 +8,7 @@ const quizSlice = createSlice({
   initialState: initialQuizState,
   reducers: {
     preFetch(state, { payload: preState }: PayloadAction<QuizState | null>) {
-      return preState || state;
+      return preState || initialQuizState;
     },
     setNewQuizzes(state, { payload: newQuizzes }: PayloadAction<IQuiz[]>) {
       return { ...initialQuizState, quizzes: newQuizzes };
