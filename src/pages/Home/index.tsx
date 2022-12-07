@@ -5,12 +5,12 @@ import useQuiz from "~/store/hooks/useQuiz";
 
 const HomePage = () => {
   const [loading, setLoading] = useState(false);
-  const { quizzes, setQuizzes } = useQuiz();
+  const { quizzes, setNewQuizzes } = useQuiz();
 
   const handleStartButton = async () => {
     setLoading(true);
     const { results: newQuizzes } = await quizApi.getQuizzes();
-    setQuizzes(newQuizzes);
+    setNewQuizzes(newQuizzes);
     setLoading(false);
   };
 
