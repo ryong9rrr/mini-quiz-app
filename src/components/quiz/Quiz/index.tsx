@@ -39,9 +39,11 @@ const Quiz = ({ quizNumber, isLast, currentQuiz, onClickNextQuiz }: QuizProps) =
         inCorrectAnswers={currentQuiz.incorrect_answers}
         onSelectAnswer={handleSelectRadio}
       />
-      <button type="button" onClick={handleClickNextQuiz} disabled={nextButtonDisabled}>
-        {isLast ? "결과 보기" : "다음 문제"}
-      </button>
+      {isSelected && (
+        <button type="button" onClick={handleClickNextQuiz} disabled={nextButtonDisabled}>
+          {isLast ? "결과 보기" : "다음 문제"}
+        </button>
+      )}
     </>
   );
 };
