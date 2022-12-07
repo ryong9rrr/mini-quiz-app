@@ -1,11 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IQuiz } from "~/lib/models";
 import { initialQuizState } from "./state";
+import { QuizState } from "./types";
 
 const quizSlice = createSlice({
   name: "quiz",
   initialState: initialQuizState,
   reducers: {
+    preFetch(state, { payload: preState }: PayloadAction<QuizState | null>) {
+      return preState || state;
+    },
     setNewQuizzes(state, { payload: newQuizzes }: PayloadAction<IQuiz[]>) {
       return { ...initialQuizState, quizzes: newQuizzes };
     },
