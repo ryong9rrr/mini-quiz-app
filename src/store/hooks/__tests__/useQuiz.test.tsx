@@ -4,6 +4,8 @@ import { mockQuizzes } from "~/test-utils/mock";
 import { act, renderHook, RenderResult } from "@testing-library/react-hooks";
 import { Provider } from "react-redux";
 import store from "~/store";
+import { QuizState } from "~/store/quiz/types";
+import { initialQuizState } from "~/store/quiz/state";
 import useQuiz from "../useQuiz";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
@@ -118,5 +120,26 @@ describe("useQuiz 기능 테스트", () => {
         result.current.goNextQuiz();
       });
     });
+  });
+
+  test("이전 상태가 있다면 이전 상태를 가진다.", () => {
+    const prevState: QuizState = {
+      quizzes: [...mockQuizzes],
+      currentQuizIndex: 1,
+      wrongQuizIndexNumbers: [0],
+    };
+    const { result } = renderHook(() => useQuiz(), { wrapper });
+    act(() => {
+      result.current.preFetch(prevState);
+    });
+    expect(result.current.currentQuizIndex).toEqual(1);
+  });
+
+  test("이전 상태가 없다면 기본 상태를 가진다.", () => {
+    const { result } = renderHook(() => useQuiz(), { wrapper });
+    act(() => {
+      result.current.preFetch(null);
+    });
+    expect(result.current.currentQuizIndex).toEqual(initialQuizState.currentQuizIndex);
   });
 });
