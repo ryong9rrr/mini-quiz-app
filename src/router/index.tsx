@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { CheckNotePage, HomePage, QuizPage, ResultPage } from "~/pages";
+import { CheckNotePage, HomePage, NotFoundPage, QuizPage, ResultPage } from "~/pages";
 import { ROUTE_PATHS } from "./paths";
 
 const Router = () => {
@@ -10,7 +10,7 @@ const Router = () => {
       <Route path={ROUTE_PATHS.QUIZ} element={<QuizPage />} />
       <Route path={ROUTE_PATHS.RESULT} element={<ResultPage />} />
       <Route path={ROUTE_PATHS.CHECK_NOTE} element={<CheckNotePage />} />
-      <Route path="*" element={<h1>404 Not Found</h1>} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 };
