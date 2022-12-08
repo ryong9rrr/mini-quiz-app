@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { RadioGroup } from "~/components/atom";
 
 interface QuizRadioGroupProps {
+  name: string;
   correctAnswer: string;
   inCorrectAnswers: string[];
   onSelectAnswer: (selectedAnswer: string) => void;
@@ -12,6 +13,7 @@ const makeRandom = (answers: string[]) => {
 };
 
 const QuizRadioGroup = ({
+  name,
   correctAnswer,
   inCorrectAnswers,
   onSelectAnswer,
@@ -26,7 +28,7 @@ const QuizRadioGroup = ({
 
   return (
     <RadioGroup
-      name="quiz"
+      name={name}
       options={answers}
       selectedValue={selectedValue}
       onSelect={handleSelect}

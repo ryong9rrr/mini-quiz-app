@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Button, Spacer } from "~/components/atom";
+import { Button, Spacer, Text } from "~/components/atom";
 import { IQuiz } from "~/lib/models";
 import * as QuizManager from "~/modules/quizManager";
-import QuizFeedback from "./QuizFeedback";
-import Question from "../Question";
+import QuizFeedback from "../QuizFeedback";
+import QuizRadioGroup from "../QuizRadioGroup";
 
 interface QuizProps {
   quizNumber: number;
@@ -35,11 +35,18 @@ const Quiz = ({ quizNumber, isLast, currentQuiz, onClickNextQuiz }: QuizProps) =
     <>
       {isSelected ? <QuizFeedback isCorrect={isCorrect} height={40} /> : <Spacer height={40} />}
       <Container>
-        <Question
-          quizNumber={quizNumber}
-          currentQuiz={currentQuiz}
-          onSelectAnswer={handleSelectRadio}
-        />
+        <>
+          <Text bold size="xlg">
+            {quizNumber}번 문제
+          </Text>
+          <Text size="lg">{currentQuiz.question}</Text>
+          <QuizRadioGroup
+            name="quiz"
+            correctAnswer={currentQuiz.correct_answer}
+            inCorrectAnswers={currentQuiz.incorrect_answers}
+            onSelectAnswer={handleSelectRadio}
+          />
+        </>
         <Spacer height={40} />
         {isSelected && (
           <Button onClick={handleClickNextQuiz} disabled={nextButtonDisabled}>
