@@ -57,4 +57,7 @@ const Container = styled.section`
   border: 1px solid ${PALETTE.green[1]};
   border-radius: 8px;
   padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
