@@ -3,14 +3,14 @@ import styled from "styled-components";
 import { Text } from "~/components/atom";
 import { PALETTE } from "~/styles/theme";
 
-interface QuizFeedback {
+interface QuizFeedbackProps {
   isCorrect: boolean;
   height: number;
 }
 
-const QuizFeedback = ({ isCorrect, height }: QuizFeedback) => {
+const QuizFeedback = ({ isCorrect, height }: QuizFeedbackProps) => {
   return (
-    <Container height={height}>
+    <Container height={height} isCorrect={isCorrect}>
       {isCorrect ? (
         <Text size="lg">🎊 정답입니다! 🎊</Text>
       ) : (
@@ -22,11 +22,11 @@ const QuizFeedback = ({ isCorrect, height }: QuizFeedback) => {
 
 export default QuizFeedback;
 
-const Container = styled.div<Pick<QuizFeedback, "height">>`
+const Container = styled.div<QuizFeedbackProps>`
   margin: 30px auto;
   max-width: 200px;
   min-height: ${({ height }) => height - 52}px;
-  border: 2px solid ${PALETTE.green[1]};
+  border: 2px solid ${({ isCorrect }) => (isCorrect ? PALETTE.green[1] : PALETTE.red)};
   border-radius: 8px;
   padding: 16px;
   display: flex;
