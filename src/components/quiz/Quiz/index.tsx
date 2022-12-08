@@ -33,9 +33,11 @@ const Quiz = ({ quizNumber, isLast, currentQuiz, onClickNextQuiz }: QuizProps) =
 
   return (
     <>
-      {isSelected ? <QuizFeedback isCorrect={isCorrect} height={80} /> : <Spacer height={80} />}
+      {isSelected ? <QuizFeedback isCorrect={isCorrect} height={80} /> : <Spacer height={20} />}
       <Container>
-        <Text size="xlg">{quizNumber} 번 문제</Text>
+        <Text bold size="xlg">
+          {quizNumber}번 문제
+        </Text>
         <Text size="lg">{currentQuiz.question}</Text>
         <QuizRadioGroup
           correctAnswer={currentQuiz.correct_answer}

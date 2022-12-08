@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { RedirectionGuide } from "~/components/common";
-import { Quiz } from "~/components/quiz";
+import { Quiz, QuizProgress } from "~/components/quiz";
 import { useQuiz } from "~/modules/contexts/quiz";
 import { ROUTE_PATHS } from "~/router/paths";
 
@@ -33,12 +33,15 @@ const QuizPage = () => {
   }
 
   return (
-    <Quiz
-      quizNumber={currentQuizNumber}
-      isLast={isLast}
-      currentQuiz={currentQuiz}
-      onClickNextQuiz={handleClickNextQuiz}
-    />
+    <>
+      <QuizProgress allQuizCount={quizzes.length} currentQuizNumber={currentQuizNumber} />
+      <Quiz
+        quizNumber={currentQuizNumber}
+        isLast={isLast}
+        currentQuiz={currentQuiz}
+        onClickNextQuiz={handleClickNextQuiz}
+      />
+    </>
   );
 };
 
