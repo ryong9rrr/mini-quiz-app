@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
-const API_END_POINT = "https://opentdb.com/api.php";
+const { REACT_APP_API_END_POINT } = process.env;
 
 const createInstance = (url: string, config: AxiosRequestConfig = {}): AxiosInstance => {
   return axios.create({
@@ -24,7 +24,7 @@ const handleError = (error: AxiosError) => {
 };
 
 export default class Api {
-  private readonly API_END_POINT = API_END_POINT;
+  private readonly API_END_POINT = REACT_APP_API_END_POINT as string;
 
   protected baseRequest: AxiosInstance;
 
