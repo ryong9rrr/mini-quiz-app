@@ -1,5 +1,9 @@
 # ✅ Mini Quiz App
 
+## 데모.gif
+
+<img src="public/demo.gif" />
+
 ### [> 배포링크(click me!)](https://gentle-sunflower-976422.netlify.app/)
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/a708541a-2b3b-4ce1-85e0-b2182c5660cd/deploy-status)](https://app.netlify.com/sites/gentle-sunflower-976422/deploys)
