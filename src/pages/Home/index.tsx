@@ -6,18 +6,28 @@ import quizApi from "~/lib/services/quiz";
 import styled from "styled-components";
 import { PALETTE } from "~/styles/theme";
 import { ROUTE_PATHS } from "~/router/paths";
+import TimeStorage from "~/modules/storage/timeSessionStorage";
 
 const HomePage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const { setNewQuizzes } = useQuiz();
 
-  const handleClickStart = async () => {
+  const fetchQuizzes = async () => {
     setLoading(true);
     const { results: newQuizzes } = await quizApi.getQuizzes();
     setNewQuizzes(newQuizzes);
     setLoading(false);
+  };
+
+  const quizStart = () => {
+    TimeStorage.setStartTimeData();
     navigate(ROUTE_PATHS.QUIZ);
+  };
+
+  const handleClickStart = async () => {
+    await fetchQuizzes();
+    quizStart();
   };
 
   return (

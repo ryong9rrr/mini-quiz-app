@@ -5,6 +5,7 @@ import { Spacer } from "~/components/atom";
 import { RedirectionGuide } from "~/components/common";
 import { Quiz, QuizProgress } from "~/components/quiz";
 import { useQuiz } from "~/modules/contexts/quiz";
+import TimeStorage from "~/modules/storage/timeSessionStorage";
 import { ROUTE_PATHS } from "~/router/paths";
 
 const QuizPage = () => {
@@ -20,6 +21,7 @@ const QuizPage = () => {
     }
     goNextQuiz(isCorrect);
     if (isLast) {
+      TimeStorage.setEndTimeData();
       navigate(ROUTE_PATHS.RESULT);
     }
   };

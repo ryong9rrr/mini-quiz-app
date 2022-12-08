@@ -6,9 +6,3 @@ export const getTime = (totalSec: number) => {
   const sec = Math.floor(totalSec);
   return [hour, min, sec];
 };
-
-export const getElapsedTime = (startTime: number) => {
-  const endTime = Date.now();
-  const ms = endTime - startTime;
-  return getTime(ms / 1000);
-};

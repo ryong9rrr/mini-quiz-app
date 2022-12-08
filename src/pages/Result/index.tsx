@@ -4,18 +4,19 @@ import styled from "styled-components";
 import { Button, Text } from "~/components/atom";
 import { RedirectionGuide } from "~/components/common";
 import { QuizChart, QuizResult } from "~/components/quiz";
-import { getElapsedTime } from "~/lib/utils";
+import { getTime } from "~/lib/utils";
 import { useQuiz } from "~/modules/contexts/quiz";
 import * as QuizManager from "~/modules/quizManager";
+import TimeStorage from "~/modules/storage/timeSessionStorage";
 import { ROUTE_PATHS } from "~/router/paths";
 
 const ResultPage = () => {
   const navigate = useNavigate();
-  const { quizzes, currentQuizIndex, wrongQuizIndexNumbers, startTime } = useQuiz();
+  const { quizzes, currentQuizIndex, wrongQuizIndexNumbers } = useQuiz();
   const isFinished = QuizManager.isFinished(quizzes.length, currentQuizIndex);
   const inCorrectCount = QuizManager.getWrongQuizzes(wrongQuizIndexNumbers, quizzes).length;
   const correctCount = quizzes.length - inCorrectCount;
-  const [hour, min, sec] = getElapsedTime(startTime);
+  const [hour, min, sec] = getTime(TimeStorage.getTimeRate());
 
   const handleClickNewQuiz = () => {
     navigate(ROUTE_PATHS.HOME);
