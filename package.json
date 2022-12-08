@@ -66,7 +66,10 @@
   "jest": {
     "moduleNameMapper": {
       "~/(.*)$": "<rootDir>/src/$1",
-      "axios": "axios/dist/node/axios.cjs"
+      "axios": "axios/dist/node/axios.cjs",
+      "chart.js": "chart.js/dist/chart.umd.js",
+      "react-chartjs-2": "react-chartjs-2/dist/index.js.map",
+      "react-lottie": "react-lottie/dist/index.js"
     }
   }
 }
