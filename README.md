@@ -1,46 +1,137 @@
-# Getting Started with Create React App
+# ✅ Mini Quiz App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### [> 배포링크(click me!)](https://gentle-sunflower-976422.netlify.app/)
 
-## Available Scripts
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a708541a-2b3b-4ce1-85e0-b2182c5660cd/deploy-status)](https://app.netlify.com/sites/gentle-sunflower-976422/deploys)
 
-In the project directory, you can run:
+---
 
-### `yarn start`
+## 👋 "미니 퀴즈 앱" 프로젝트 소개
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [https://opentdb.com/api_config.php](https://opentdb.com/api_config.php)에서 제공하는 오픈 소스 API를 이용하여 구현한 퀴즈 앱입니다.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- 문서 최상단의 배포링크를 통해 체험하실 수 있습니다.
 
-### `yarn test`
+### 🛠️ 사용한 기술 스택
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- `node v14+(npm v9+)` `yarn`
 
-### `yarn build`
+- `React-Typescript CRA`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- `react-router-dom` `Chart.js`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- `eslint` `prettier` `Styled-components`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- `jest` `react-testing-library`
 
-### `yarn eject`
+### 💡 이 프로젝트를 clone하고 싶다면
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**1. 이 저장소를 클론해주세요.**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**2. 의존성을 설치해주세요.**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+`yarn install`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**3. 환경 변수를 설정해주세요.**
 
-## Learn More
+프로젝트 최상단(루트) 경로에 `.env` 파일을 만들고 아래와 같이 환경 변수를 설정해주세요.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+REACT_APP_API_END_POINT=https://opentdb.com/api.php
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**4. 실행해주세요.**
+
+로컬환경에서 3000번 포트로 실행됩니다.
+
+`yarn start`
+
+---
+
+## 🔎 무엇을 테스트 하였나요?
+
+> 아래 기능이 정상작동하는지 테스트 합니다.
+
+**상태 변경이 일어나는 기능**
+
+1. 새로운 퀴즈를 시작하는 경우
+
+2. 다음 퀴즈로 넘어가는 경우
+
+3. 문제를 틀렸다면 틀린 문제 개수를 반환
+
+**상태 변경이 일어나지 않는 기능**
+
+1. 현재 사용자가 문제를 다 풀었는지 아닌지
+
+2. 현재 사용자가 풀고 있는 문제가 틀렸는지 아닌지
+
+---
+
+**이 앱의 기능은 다음과 같습니다.**
+
+- [ ] 사용자는 ‘퀴즈 풀기’ 버튼을 클릭하여 퀴즈 풀기를 시작할 수 있다.
+- [ ] 사용자는 문항에 대한 답안을 4개 보기 중에 선택할 수 있다.
+- [ ] 사용자는 답안을 선택하면 다음 문항을 볼 수 있다.
+  - [ ] 답안 선택 후 다음 문항 버튼을 볼 수 있다.
+  - [ ] 답안이 맞았는지 틀렸는지 바로 알 수 있다.
+  - [ ] 다음 문항 버튼을 클릭하여 다음 문항으로 이동할 수 있다.
+- [ ] 모든 문항을 다 풀면 다음과 같은 결과 정보를 볼 수 있다.
+  - [ ] 퀴즈를 마칠 때까지 소요된 시간
+  - [ ] 정답 개수
+  - [ ] 오답 수
+  - [ ] 정 오답에 대한 비율을 차트로 표기
+- [ ] 오답 노트 기능
+
+**필요한 주요 기능은 아래와 같이 정리할 수 있습니다.**
+
+1. 새로운 퀴즈를 생성하고 저장하는 기능
+
+2. 다음 문제로 넘어가는 기능
+
+   - 문제를 풀지 않았다면 넘어갈 수 없습니다.
+   - 문제를 풀었는지 확인하는 기능
+   - 문제를 풀지 않았다면 버튼을 숨기는 기능(UI)
+   - 문제를 틀렸다면 틀린 문제를 저장하는 기능
+
+3. 틀린 문제들을 가져오는 기능
+
+4. 문제가 틀렸는지 맞았는지 알려주는 기능
+
+5. 문제를 모두 풀었는지 확인하는 기능
+
+**그러면 이 앱에 필요한 상태는 총 3가지로 정의할 수 있습니다.**
+
+1. 불러온 퀴즈 데이터
+
+2. 현재 풀고 있는 문제(인덱스)
+
+3. 틀린 문제(문제의 인덱스)
+
+**이 3가지의 상태를 알고 있다면 다른 기능을 모두 구현할 수 있을 것입니다.**
+
+**저는 아래 2가지 이유로 전역 상태로 구현하기로 했고, Context API를 사용했습니다.**
+
+1. 상태의 데이터가 여러 페이지(퀴즈 페이지, 오답 페이지, 결과 페이지)에 사용됩니다.
+
+2. 상태를 한 곳에서 관리하게 된다면 기능만 테스트 할 수 있습니다.
+
+## 🤔 더 생각해본 사용자 경험
+
+**상태가 변경된다면 클라이언트의 상태를 유지시켜줘야 합니다. 간단하게 세션 스토리지를 사용했습니다.**
+
+1. 문제를 풀다가 새로고침을 하는 경우 풀던 문제를 이어서 풀 수 있습니다.
+
+2. 문제를 다 풀지 않았는데 의도적으로 퀴즈 결과 페이지, 오답 노트 페이지에 접근하는 경우 - 퀴즈 화면으로 이동을 유도합니다.
+
+3. 문제를 다 풀었는데 의도적으로 퀴즈 페이지에 접근하는 경우 - 문제를 이미 다 풀어서 풀고 있는 문제가 없으므로 홈화면으로 이동을 유도합니다.
+
+4. 오답이 없는 경우 - 오답이 없다는 UI처리를 합니다.
+
+---
+
+### 📝 참고
+
+**이 프로젝트를 구현하면서 작성했던 노션문서입니다.**
+
+[노션 링크 바로가기](https://www.notion.so/ryong9rrr/Quiz-App-30e70074bfcd43b2a8e4280811c13111)
