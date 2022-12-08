@@ -1,5 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { Spacer } from "~/components/atom";
 import { RedirectionGuide } from "~/components/common";
 import { Quiz, QuizProgress } from "~/components/quiz";
 import { useQuiz } from "~/modules/contexts/quiz";
@@ -33,16 +35,21 @@ const QuizPage = () => {
   }
 
   return (
-    <>
+    <Container>
       <QuizProgress allQuizCount={quizzes.length} currentQuizNumber={currentQuizNumber} />
+      <Spacer height={20} />
       <Quiz
         quizNumber={currentQuizNumber}
         isLast={isLast}
         currentQuiz={currentQuiz}
         onClickNextQuiz={handleClickNextQuiz}
       />
-    </>
+    </Container>
   );
 };
 
 export default QuizPage;
+
+const Container = styled.section`
+  margin-top: 100px;
+`;

@@ -33,14 +33,14 @@ const Quiz = ({ quizNumber, isLast, currentQuiz, onClickNextQuiz }: QuizProps) =
 
   return (
     <>
-      {isSelected ? <QuizFeedback isCorrect={isCorrect} height={80} /> : <Spacer height={20} />}
+      {isSelected ? <QuizFeedback isCorrect={isCorrect} height={40} /> : <Spacer height={40} />}
       <Container>
         <Question
           quizNumber={quizNumber}
           currentQuiz={currentQuiz}
           onSelectAnswer={handleSelectRadio}
         />
-
+        <Spacer height={40} />
         {isSelected && (
           <Button onClick={handleClickNextQuiz} disabled={nextButtonDisabled}>
             {isLast ? "결과 보기" : "다음 문제"}

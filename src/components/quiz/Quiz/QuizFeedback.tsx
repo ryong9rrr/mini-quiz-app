@@ -23,7 +23,7 @@ const QuizFeedback = ({ isCorrect, height }: QuizFeedback) => {
 export default QuizFeedback;
 
 const Container = styled.div<Pick<QuizFeedback, "height">>`
-  margin: 30px auto 0;
+  margin: 30px auto;
   max-width: 200px;
   min-height: ${({ height }) => height - 52}px;
   border: 2px solid ${PALETTE.green[1]};
