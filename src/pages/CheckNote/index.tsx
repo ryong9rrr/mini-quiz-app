@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import { NavLink } from "react-router-dom";
 import { CheckNote } from "~/components/quiz";
 import { useQuiz } from "~/modules/contexts/quiz";
-import QuizManager from "~/modules/quizManager";
+import * as QuizManager from "~/modules/quizManager";
 
 const CheckNotePage = () => {
   const { quizzes, currentQuizIndex, wrongQuizIndexNumbers } = useQuiz();

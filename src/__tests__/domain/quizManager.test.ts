@@ -1,4 +1,4 @@
-import QuizManager from "~/modules/quizManager";
+import * as QuizManager from "~/modules/quizManager";
 import { mockQuizzes } from "~/tests-utils/mock";
 
 describe("퀴즈 기능 테스트", () => {

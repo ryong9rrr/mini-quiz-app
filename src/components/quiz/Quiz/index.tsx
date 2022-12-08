@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IQuiz } from "~/lib/models";
-import QuizManager from "~/modules/quizManager";
+import * as QuizManager from "~/modules/quizManager";
 import QuizFeedback from "./QuizFeedback";
 import QuizRadioGroup from "./QuizRadioGroup";
 

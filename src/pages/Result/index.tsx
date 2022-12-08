@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { QuizResult } from "~/components/quiz";
 import { getElapsedTime } from "~/lib/utils";
 import { useQuiz } from "~/modules/contexts/quiz";
-import QuizManager from "~/modules/quizManager";
+import * as QuizManager from "~/modules/quizManager";
 
 const ResultPage = () => {
   const { quizzes, currentQuizIndex, wrongQuizIndexNumbers, startTime } = useQuiz();
