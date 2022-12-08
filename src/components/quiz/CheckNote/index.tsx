@@ -14,6 +14,10 @@ const CheckNote = ({ wrongQuizzes }: CheckNoteProps) => {
     return;
   };
 
+  if (wrongQuizzes.length === 0) {
+    return <Text size="lg">오답이 없습니다.</Text>;
+  }
+
   return (
     <Container>
       {wrongQuizzes.map((wrongQuiz) => (
