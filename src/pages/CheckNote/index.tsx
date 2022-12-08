@@ -1,5 +1,6 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import styled from "styled-components";
+import { Spacer, Text } from "~/components/atom";
 import { RedirectionGuide } from "~/components/common";
 import { CheckNote } from "~/components/quiz";
 import { useQuiz } from "~/modules/contexts/quiz";
@@ -22,11 +23,18 @@ const CheckNotePage = () => {
   }
 
   return (
-    <>
-      <h1>오답 노트 페이지</h1>
+    <Container>
+      <Text size="xlg" bold>
+        📝 오답 노트
+      </Text>
+      <Spacer height={20} />
       <CheckNote wrongQuizzes={wrongQuizzes} />
-    </>
+    </Container>
   );
 };
 
 export default CheckNotePage;
+
+const Container = styled.section`
+  padding-top: 20px;
+`;

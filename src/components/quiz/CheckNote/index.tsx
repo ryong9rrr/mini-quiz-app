@@ -1,19 +1,19 @@
 import React from "react";
-import { IQuiz } from "~/lib/models";
+import { IWrongQuiz } from "~/lib/models";
 
 interface CheckNoteProps {
-  wrongQuizzes: IQuiz[];
+  wrongQuizzes: IWrongQuiz[];
 }
 
 const CheckNote = ({ wrongQuizzes }: CheckNoteProps) => {
   return (
     <ul>
-      {wrongQuizzes.map((quiz) => (
-        <li key={quiz.question}>
-          <h3>{quiz.question}</h3>
-          <span>정답 : {quiz.correct_answer}</span>
+      {wrongQuizzes.map((wrongQuiz) => (
+        <li key={wrongQuiz.quizNumber}>
+          <h3>{wrongQuiz.quiz.question}</h3>
+          <span>정답 : {wrongQuiz.quiz.correct_answer}</span>
           <div>
-            {quiz.incorrect_answers.map((incorrectAnswer) => (
+            {wrongQuiz.quiz.incorrect_answers.map((incorrectAnswer) => (
               <div key={incorrectAnswer}>{incorrectAnswer}</div>
             ))}
           </div>

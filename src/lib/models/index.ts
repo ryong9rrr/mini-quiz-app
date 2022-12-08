@@ -8,3 +8,8 @@ export type IQuiz = {
   correct_answer: string;
   incorrect_answers: [string, string, string];
 };
+
+export type IWrongQuiz = {
+  quizNumber: number;
+  quiz: IQuiz;
+};
