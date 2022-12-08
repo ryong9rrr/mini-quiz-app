@@ -37,7 +37,7 @@ const ResultPage = () => {
         👏 수고하셨습니다.
       </Text>
       <QuizResult time={times} correctCount={correctCount} inCorrectCount={inCorrectCount} />
-      <QuizChart />
+      <QuizChart inCorrectCount={inCorrectCount} correctCount={correctCount} />
       <ButtonContainer>
         <Button onClick={handleClickNewQuiz}>새로운 퀴즈 풀기</Button>
       </ButtonContainer>
