@@ -5,7 +5,7 @@ import { Spacer } from "~/components/atom";
 import { RedirectionGuide } from "~/components/common";
 import { Quiz, QuizProgress } from "~/components/quiz";
 import { useQuiz } from "~/modules/contexts/quiz";
-import TimeStorage from "~/modules/storage/timeSessionStorage";
+import { TimeStorage } from "~/modules/storage";
 import { ROUTE_PATHS } from "~/router/paths";
 
 const QuizPage = () => {

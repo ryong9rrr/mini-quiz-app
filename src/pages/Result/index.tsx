@@ -6,8 +6,8 @@ import { RedirectionGuide } from "~/components/common";
 import { QuizChart, QuizResult } from "~/components/quiz";
 import { getTime } from "~/lib/utils";
 import { useQuiz } from "~/modules/contexts/quiz";
-import * as QuizManager from "~/modules/quizManager";
-import TimeStorage from "~/modules/storage/timeSessionStorage";
+import { QuizManager } from "~/modules/manager";
+import { TimeStorage } from "~/modules/storage";
 import { ROUTE_PATHS } from "~/router/paths";
 
 const ResultPage = () => {

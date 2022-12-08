@@ -1,10 +1,9 @@
 import React from "react";
-import styled from "styled-components";
 import { Spacer, Text } from "~/components/atom";
 import { RedirectionGuide } from "~/components/common";
 import { CheckNote } from "~/components/quiz";
 import { useQuiz } from "~/modules/contexts/quiz";
-import * as QuizManager from "~/modules/quizManager";
+import { QuizManager } from "~/modules/manager";
 import { ROUTE_PATHS } from "~/router/paths";
 
 const CheckNotePage = () => {

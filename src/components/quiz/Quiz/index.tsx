@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Button, Spacer, Text } from "~/components/atom";
 import { IQuiz } from "~/lib/models";
-import * as QuizManager from "~/modules/manager/quizManager";
+import { QuizManager } from "~/modules/manager";
 import QuizFeedback from "../QuizFeedback";
 import QuizRadioGroup from "../QuizRadioGroup";
 

@@ -6,7 +6,7 @@ import quizApi from "~/lib/services/quiz";
 import styled from "styled-components";
 import { PALETTE } from "~/styles/theme";
 import { ROUTE_PATHS } from "~/router/paths";
-import TimeStorage from "~/modules/storage/timeSessionStorage";
+import { TimeStorage } from "~/modules/storage";
 
 const HomePage = () => {
   const navigate = useNavigate();

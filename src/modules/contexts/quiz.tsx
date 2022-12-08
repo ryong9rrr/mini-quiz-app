@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { IQuiz } from "../../lib/models";
-import QuizStorage from "../storage/quizSesstionStorage";
+import { QuizStorage } from "../storage";
 
 interface IQuizContext {
   quizzes: IQuiz[];
