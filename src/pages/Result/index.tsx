@@ -15,7 +15,7 @@ const ResultPage = () => {
   const isFinished = QuizManager.isFinished(quizzes.length, currentQuizIndex);
   const inCorrectCount = QuizManager.getWrongQuizzes(wrongQuizIndexNumbers, quizzes).length;
   const correctCount = quizzes.length - inCorrectCount;
-  const times = getElapsedTime(startTime);
+  const [hour, min, sec] = getElapsedTime(startTime);
 
   const handleClickNewQuiz = () => {
     navigate(ROUTE_PATHS.HOME);
@@ -36,7 +36,11 @@ const ResultPage = () => {
       <Text size="xlg" bold style={{ marginBottom: "20px" }}>
         👏 수고하셨습니다.
       </Text>
-      <QuizResult time={times} correctCount={correctCount} inCorrectCount={inCorrectCount} />
+      <QuizResult
+        time={{ hour, min, sec }}
+        correctCount={correctCount}
+        inCorrectCount={inCorrectCount}
+      />
       <QuizChart inCorrectCount={inCorrectCount} correctCount={correctCount} />
       <ButtonContainer>
         <Button onClick={handleClickNewQuiz}>새로운 퀴즈 풀기</Button>
