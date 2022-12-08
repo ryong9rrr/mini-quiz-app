@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { RedirectionGuide } from "~/components/common";
 import { CheckNote } from "~/components/quiz";
 import { useQuiz } from "~/modules/contexts/quiz";
 import * as QuizManager from "~/modules/quizManager";
@@ -12,10 +13,11 @@ const CheckNotePage = () => {
 
   if (!isFinished) {
     return (
-      <>
-        <h1>아직 퀴즈를 다 풀지 않았어요!</h1>
-        <NavLink to={ROUTE_PATHS.QUIZ}>퀴즈 이어서 풀러가기</NavLink>
-      </>
+      <RedirectionGuide
+        text="✋ 아직 퀴즈를 다 풀지 않았어요!"
+        path={ROUTE_PATHS.QUIZ}
+        pathMessage="퀴즈 이어서 풀러가기"
+      />
     );
   }
 

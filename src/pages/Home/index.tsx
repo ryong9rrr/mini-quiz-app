@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Loading, Text } from "~/components/common";
+import { Button, Loading, Text } from "~/components/atom";
 import { useQuiz } from "~/modules/contexts/quiz";
 import quizApi from "~/lib/services/quiz";
 import styled from "styled-components";
@@ -29,7 +29,7 @@ const HomePage = () => {
         </>
       ) : (
         <>
-          <Text size="xlg" bold style={{ margin: "16px 0" }}>
+          <Text size="xlg" style={{ margin: "16px 0" }}>
             퀴즈를 시작해볼까요?
           </Text>
           <Button size="lg" onClick={handleClickStart}>

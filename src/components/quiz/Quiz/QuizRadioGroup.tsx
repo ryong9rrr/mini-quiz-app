@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { RadioGroup } from "~/components/common";
+import { RadioGroup } from "~/components/atom";
 
 interface QuizRadioGroupProps {
   correctAnswer: string;

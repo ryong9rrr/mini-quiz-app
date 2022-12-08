@@ -1,5 +1,6 @@
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { RedirectionGuide } from "~/components/common";
 import { Quiz } from "~/components/quiz";
 import { useQuiz } from "~/modules/contexts/quiz";
 import { ROUTE_PATHS } from "~/router/paths";
@@ -23,10 +24,11 @@ const QuizPage = () => {
 
   if (!currentQuiz) {
     return (
-      <>
-        <h1>풀고 있는 퀴즈가 없습니다. 홈으로 이동합니다.</h1>
-        <NavLink to={ROUTE_PATHS.HOME}>홈으로</NavLink>
-      </>
+      <RedirectionGuide
+        text="✋ 풀고 있는 퀴즈가 없어요!"
+        path={ROUTE_PATHS.HOME}
+        pathMessage="홈으로"
+      />
     );
   }
 
