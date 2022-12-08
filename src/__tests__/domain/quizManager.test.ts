@@ -32,7 +32,10 @@ describe("퀴즈 기능 테스트", () => {
 
   test("getWrongQuizzes - 틀린 문제를 반환한다.", () => {
     const wrongQuizIndexNumbers = [0, 1];
-    const wrongQuizzes = [mockQuizzes[0], mockQuizzes[1]];
+    const wrongQuizzes = [
+      { quizNumber: 1, quiz: mockQuizzes[0] },
+      { quizNumber: 2, quiz: mockQuizzes[1] },
+    ];
     expect(QuizManager.getWrongQuizzes(wrongQuizIndexNumbers, mockQuizzes)).toEqual(wrongQuizzes);
   });
 });
