@@ -1,4 +1,5 @@
 import React, { ChangeEvent } from "react";
+import styled from "styled-components";
 
 interface RadioGroupProps {
   name: string;
@@ -13,7 +14,7 @@ const RadioGroup = ({ name, options, selectedValue, onSelect }: RadioGroupProps)
   };
 
   return (
-    <ul>
+    <Container>
       {options.map((option) => (
         <li key={option}>
           <input
@@ -27,8 +28,19 @@ const RadioGroup = ({ name, options, selectedValue, onSelect }: RadioGroupProps)
           <label htmlFor={option}>{option}</label>
         </li>
       ))}
-    </ul>
+    </Container>
   );
 };
 
 export default RadioGroup;
+
+const Container = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  input,
+  label {
+    cursor: pointer;
+  }
+`;

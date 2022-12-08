@@ -1,16 +1,33 @@
 import React from "react";
+import styled from "styled-components";
+import { Text } from "~/components/atom";
+import { PALETTE } from "~/styles/theme";
 
 interface QuizFeedback {
-  isSelected: boolean;
   isCorrect: boolean;
+  height: number;
 }
 
-const QuizFeedback = ({ isSelected, isCorrect }: QuizFeedback) => {
-  if (!isSelected) {
-    return null;
-  }
-
-  return <div>{isCorrect ? "정답입니다!" : "다시 생각해보세요"}</div>;
+const QuizFeedback = ({ isCorrect, height }: QuizFeedback) => {
+  return (
+    <Container height={height}>
+      {isCorrect ? (
+        <Text size="lg">🎊 정답입니다! 🎊</Text>
+      ) : (
+        <Text size="lg">🤔 다시 생각해보세요.</Text>
+      )}
+    </Container>
+  );
 };
 
 export default QuizFeedback;
+
+const Container = styled.div<Pick<QuizFeedback, "height">>`
+  min-height: ${({ height }) => height - 52}px;
+  border: 2px solid ${PALETTE.green[1]};
+  border-radius: 8px;
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
