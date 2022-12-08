@@ -14,7 +14,7 @@ const CheckNote = ({ wrongQuizzes }: CheckNoteProps) => {
           <span>정답 : {quiz.correct_answer}</span>
           <div>
             {quiz.incorrect_answers.map((incorrectAnswer) => (
-              <div>{incorrectAnswer}</div>
+              <div key={incorrectAnswer}>{incorrectAnswer}</div>
             ))}
           </div>
         </li>
