@@ -1,4 +1,4 @@
-import Api from "../core/Api";
+import { Api } from "../core";
 import { IQuiz, QuizType } from "../models";
 
 type ResponseData = {

@@ -1,50 +1,40 @@
+import { WebStorage } from "~/lib/core";
 import { IQuiz } from "~/lib/models";
 
 const QUIZZES = "prev-quizzes";
 const CURRENT_QUIZ_INDEX = "prev-currentQuizIndex";
 const WRONG_QUIZ_INDEX_NUMBERS = "prev-wrongQuizIndexNumbers";
 
-const storage = window.sessionStorage;
+class QuizStorage extends WebStorage {
+  constructor() {
+    super("session");
+  }
 
-function getData<T>(key: string, defaultValue: T): T {
-  try {
-    const data = storage.getItem(key);
-    return data ? JSON.parse(data) : defaultValue;
-  } catch (error) {
-    return defaultValue;
+  getQuizzesData(): IQuiz[] {
+    return this.getData(QUIZZES, []);
+  }
+
+  setQuizzesData(quizzes: IQuiz[]) {
+    this.setData(QUIZZES, quizzes);
+  }
+
+  getCurrentIndexData(): number {
+    return this.getData(CURRENT_QUIZ_INDEX, 0);
+  }
+
+  setCurrentIndexData(number: number) {
+    this.setData(CURRENT_QUIZ_INDEX, number);
+  }
+
+  getWrongQuizIndexNumbersData(): number[] {
+    return this.getData(WRONG_QUIZ_INDEX_NUMBERS, []);
+  }
+
+  setWrongQuizIndexNumbersData(numbers: number[]) {
+    this.setData(WRONG_QUIZ_INDEX_NUMBERS, numbers);
   }
 }
 
-function setData<T>(key: string, value: T) {
-  try {
-    storage.setItem(key, JSON.stringify(value));
-  } catch (error) {
-    throw new Error("storage occur error");
-  }
-}
+const quizStorage = new QuizStorage();
 
-export default class QuizStorage {
-  static getQuizzesData(): IQuiz[] {
-    return getData(QUIZZES, []);
-  }
-
-  static setQuizzesData(quizzes: IQuiz[]) {
-    setData(QUIZZES, quizzes);
-  }
-
-  static getCurrentIndexData(): number {
-    return getData(CURRENT_QUIZ_INDEX, 0);
-  }
-
-  static setCurrentIndexData(number: number) {
-    setData(CURRENT_QUIZ_INDEX, number);
-  }
-
-  static getWrongQuizIndexNumbersData(): number[] {
-    return getData(WRONG_QUIZ_INDEX_NUMBERS, []);
-  }
-
-  static setWrongQuizIndexNumbersData(numbers: number[]) {
-    setData(WRONG_QUIZ_INDEX_NUMBERS, numbers);
-  }
-}
+export default quizStorage;
