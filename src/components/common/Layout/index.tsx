@@ -29,5 +29,5 @@ const Main = styled.main`
   margin: 0 auto;
   min-width: 380px;
   max-width: 512px;
-  padding: 0 16px;
+  padding: 20px 16px;
 `;

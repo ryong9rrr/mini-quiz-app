@@ -23,18 +23,14 @@ const CheckNotePage = () => {
   }
 
   return (
-    <Container>
+    <>
       <Text size="xlg" bold>
         📝 오답 노트
       </Text>
       <Spacer height={20} />
       <CheckNote wrongQuizzes={wrongQuizzes} />
-    </Container>
+    </>
   );
 };
 
 export default CheckNotePage;
-
-const Container = styled.section`
-  padding-top: 20px;
-`;
