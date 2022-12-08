@@ -21,12 +21,12 @@ const makeData = (inCorrectCount: number, correctCount: number) => ({
     {
       label: "틀린 문제",
       data: [inCorrectCount],
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
+      backgroundColor: PALETTE.red,
     },
     {
       label: "맞은 문제",
       data: [correctCount],
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
+      backgroundColor: PALETTE.blue,
     },
   ],
 });
