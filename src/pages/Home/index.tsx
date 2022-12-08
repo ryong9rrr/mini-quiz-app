@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Button, Loading, Text } from "~/components/common";
 import { useQuiz } from "~/modules/contexts/quiz";
 import quizApi from "~/lib/services/quiz";
-import { Helmet } from "react-helmet";
 import styled from "styled-components";
 import { PALETTE } from "~/styles/theme";
+import { ROUTE_PATHS } from "~/router/paths";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -17,30 +17,27 @@ const HomePage = () => {
     const { results: newQuizzes } = await quizApi.getQuizzes();
     setNewQuizzes(newQuizzes);
     setLoading(false);
-    navigate("/quiz");
+    navigate(ROUTE_PATHS.QUIZ);
   };
 
   return (
-    <>
-      <Helmet title="홈 | Mini-Quiz" />
-      <Container>
-        {loading ? (
-          <>
-            <Loading />
-            <Text>퀴즈를 생성 중입니다...</Text>
-          </>
-        ) : (
-          <>
-            <Text size="xlg" bold style={{ margin: "16px 0" }}>
-              퀴즈를 시작해볼까요?
-            </Text>
-            <Button size="lg" onClick={handleClickStart}>
-              START
-            </Button>
-          </>
-        )}
-      </Container>
-    </>
+    <Container>
+      {loading ? (
+        <>
+          <Loading />
+          <Text>퀴즈를 생성 중입니다...</Text>
+        </>
+      ) : (
+        <>
+          <Text size="xlg" bold style={{ margin: "16px 0" }}>
+            퀴즈를 시작해볼까요?
+          </Text>
+          <Button size="lg" onClick={handleClickStart}>
+            START
+          </Button>
+        </>
+      )}
+    </Container>
   );
 };
 

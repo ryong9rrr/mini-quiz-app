@@ -1,8 +1,8 @@
 import React from "react";
-import { Helmet } from "react-helmet";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Quiz } from "~/components/quiz";
 import { useQuiz } from "~/modules/contexts/quiz";
+import { ROUTE_PATHS } from "~/router/paths";
 
 const QuizPage = () => {
   const navigate = useNavigate();
@@ -17,30 +17,26 @@ const QuizPage = () => {
     }
     goNextQuiz(isCorrect);
     if (isLast) {
-      navigate("/result");
+      navigate(ROUTE_PATHS.RESULT);
     }
   };
 
   if (!currentQuiz) {
     return (
       <>
-        <Helmet title="퀴즈 | Mini-Quiz" />
         <h1>풀고 있는 퀴즈가 없습니다. 홈으로 이동합니다.</h1>
-        <NavLink to="/">홈으로</NavLink>
+        <NavLink to={ROUTE_PATHS.HOME}>홈으로</NavLink>
       </>
     );
   }
 
   return (
-    <>
-      <Helmet title="퀴즈 | Mini-Quiz" />
-      <Quiz
-        quizNumber={currentQuizNumber}
-        isLast={isLast}
-        currentQuiz={currentQuiz}
-        onClickNextQuiz={handleClickNextQuiz}
-      />
-    </>
+    <Quiz
+      quizNumber={currentQuizNumber}
+      isLast={isLast}
+      currentQuiz={currentQuiz}
+      onClickNextQuiz={handleClickNextQuiz}
+    />
   );
 };
 
