@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "~/components/common";
+import { Button, Loading, Text } from "~/components/common";
 import { useQuiz } from "~/modules/contexts/quiz";
 import quizApi from "~/lib/services/quiz";
 import { Helmet } from "react-helmet";
+import styled from "styled-components";
+import { PALETTE } from "~/styles/theme";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -18,22 +20,40 @@ const HomePage = () => {
     navigate("/quiz");
   };
 
-  if (loading) {
-    return (
-      <>
-        <Helmet title="홈 | Mini-Quiz" />
-        <h1>퀴즈 생성 중...</h1>
-      </>
-    );
-  }
-
   return (
     <>
       <Helmet title="홈 | Mini-Quiz" />
-      <h1>퀴즈 시작하기</h1>
-      <Button onClick={handleClickStart}>START</Button>
+      <Container>
+        {loading ? (
+          <>
+            <Loading />
+            <Text>퀴즈를 생성 중입니다...</Text>
+          </>
+        ) : (
+          <>
+            <Text size="xlg" bold style={{ margin: "16px 0" }}>
+              퀴즈를 시작해볼까요?
+            </Text>
+            <Button size="lg" onClick={handleClickStart}>
+              START
+            </Button>
+          </>
+        )}
+      </Container>
     </>
   );
 };
 
 export default HomePage;
+
+const Container = styled.div`
+  margin-top: 150px;
+  padding: 24px;
+  border: 2px solid ${PALETTE.green[1]};
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 16px;
+  text-align: center;
+`;
