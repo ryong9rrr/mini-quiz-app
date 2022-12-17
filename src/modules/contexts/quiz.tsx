@@ -10,14 +10,14 @@ interface IQuizContext {
     inCorrect: number;
     correct: number;
   };
-  currectQuiz: {
+  currentQuiz: {
     number: number;
     quiz: IQuiz | null;
     isLast: boolean;
   };
   setNewQuizzes: (newQuizzes: IQuiz[]) => void;
   goNextQuiz: (isAnswered: boolean) => void;
-  isCorrect: (currentQuiz: IQuiz, selectedAnswer: string) => boolean;
+  isCorrect: (quiz: IQuiz | null, selectedAnswer: string | null) => boolean;
 }
 
 const initialQuizContext: IQuizContext = {
@@ -28,20 +28,18 @@ const initialQuizContext: IQuizContext = {
     inCorrect: 0,
     correct: 0,
   },
-  currectQuiz: {
+  currentQuiz: {
     number: 0,
     quiz: null,
     isLast: false,
   },
-  // eslint-disable-next-line
-  setNewQuizzes(newQuizzes: IQuiz[]) {
+  setNewQuizzes() {
     return;
   },
-  // eslint-disable-next-line
-  goNextQuiz(isAnswered: boolean) {
+  goNextQuiz() {
     return;
   },
-  isCorrect(currentQuiz: IQuiz, selectedAnswer: string) {
+  isCorrect() {
     return false;
   },
 };
@@ -84,7 +82,7 @@ export const QuizContextProvider = ({
     return quizzes.length > 0 && currentQuizIndex >= quizzes.length;
   }, [currentQuizIndex, quizzes]);
 
-  const currectQuiz = useMemo(() => {
+  const currentQuiz = useMemo(() => {
     const quiz = quizzes[currentQuizIndex] || null;
     const number = currentQuizIndex + 1;
     const isLast = currentQuizIndex + 1 === quizzes.length;
@@ -95,8 +93,11 @@ export const QuizContextProvider = ({
     };
   }, [quizzes, currentQuizIndex]);
 
-  const isCorrect = useCallback((currentQuiz: IQuiz, selectedAnswer: string) => {
-    return currentQuiz.correct_answer === selectedAnswer;
+  const isCorrect = useCallback((quiz: IQuiz | null, selectedAnswer: string | null) => {
+    if (!quiz || !selectedAnswer) {
+      return false;
+    }
+    return quiz.correct_answer === selectedAnswer;
   }, []);
 
   const setNewQuizzes = useCallback(
@@ -152,7 +153,7 @@ export const QuizContextProvider = ({
       isFinished,
       wrongQuizzes,
       quizCount,
-      currectQuiz,
+      currentQuiz,
       setNewQuizzes,
       goNextQuiz,
       isCorrect,
@@ -162,7 +163,7 @@ export const QuizContextProvider = ({
       isFinished,
       wrongQuizzes,
       quizCount,
-      currectQuiz,
+      currentQuiz,
       setNewQuizzes,
       goNextQuiz,
       isCorrect,
