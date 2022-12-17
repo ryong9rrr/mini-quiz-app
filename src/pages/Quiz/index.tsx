@@ -21,7 +21,7 @@ const QuizPage = () => {
     if (!isSelectedAnswer) {
       return;
     }
-    goNextQuiz(match(currentQuiz.quiz, selectedAnswer));
+    goNextQuiz(selectedAnswer);
     if (currentQuiz.isLast) {
       TimeStorage.setEndTimeData();
       navigate(ROUTE_PATHS.RESULT);

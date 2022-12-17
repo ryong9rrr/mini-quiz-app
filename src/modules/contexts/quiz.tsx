@@ -17,7 +17,7 @@ interface IQuizContext {
   };
   match: (quiz: IQuiz | null, selectedAnswer: string | null) => boolean;
   setNewQuizzes: (newQuizzes: IQuiz[]) => void;
-  goNextQuiz: (isAnswered: boolean) => void;
+  goNextQuiz: (selectedAnswer: string) => void;
 }
 
 const initialQuizContext: IQuizContext = {
@@ -126,17 +126,17 @@ export const QuizContextProvider = ({
   }, [currentQuizIndex, wrongQuizIndexNumbers, hasStorage]);
 
   const goNextQuiz = useCallback(
-    (isAnswered: boolean) => {
-      if (!isAnswered) {
+    (selectedAnswer: string) => {
+      if (!match(currentQuiz.quiz, selectedAnswer)) {
         setWrongAnswers();
       }
-      const nextIndex = currentQuizIndex + 1;
-      setCurrentQuizIndex(nextIndex);
+      const nextQuizIndex = currentQuiz.number;
+      setCurrentQuizIndex(nextQuizIndex);
       if (hasStorage) {
-        QuizStorage.setCurrentIndexData(nextIndex);
+        QuizStorage.setCurrentIndexData(nextQuizIndex);
       }
     },
-    [currentQuizIndex, setWrongAnswers, hasStorage],
+    [currentQuiz, match, setWrongAnswers, hasStorage],
   );
 
   useEffect(() => {
