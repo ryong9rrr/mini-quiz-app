@@ -12,7 +12,6 @@ const QuizPage = () => {
   const { allQuizCount, currentQuiz, goNextQuiz, match } = useQuiz();
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const isSelectedAnswer = typeof selectedAnswer === "string";
-  const buttonDisabled = !selectedAnswer;
 
   const handleSelectAnswer = (answer: string) => {
     setSelectedAnswer(answer);
@@ -61,11 +60,7 @@ const QuizPage = () => {
       />
 
       {isSelectedAnswer && (
-        <Button
-          onClick={handleClickNextQuiz}
-          disabled={buttonDisabled}
-          style={{ marginTop: "40px", width: "100%" }}
-        >
+        <Button onClick={handleClickNextQuiz} style={{ marginTop: "40px", width: "100%" }}>
           {currentQuiz.isLast ? "결과 보기" : "다음 문제"}
         </Button>
       )}
