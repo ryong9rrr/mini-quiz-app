@@ -35,7 +35,7 @@ export default class WebStorage {
     this.storage.removeItem(key);
   }
 
-  protected getData<T>(key: string, defaultValue: T): T {
+  getData<T>(key: string, defaultValue: T): T {
     try {
       const data = this.get(key);
       return data ? JSON.parse(data) : defaultValue;
@@ -44,7 +44,7 @@ export default class WebStorage {
     }
   }
 
-  protected setData<T>(key: string, value: T) {
+  setData<T>(key: string, value: T) {
     try {
       this.set(key, JSON.stringify(value));
     } catch (error) {

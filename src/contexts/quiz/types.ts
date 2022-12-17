@@ -1,3 +1,5 @@
+import React from "react";
+import { QuizServiceInterface } from "~/interfaces";
 import { IQuiz, IWrongQuiz } from "~/lib/models";
 
 export type QuizCount = {
@@ -11,13 +13,18 @@ export type CurrentQuiz = {
   isLast: boolean;
 };
 
-export interface IQuizContext {
+export interface QuizContextProps {
+  children: React.ReactNode;
+  quizService: QuizServiceInterface;
+}
+
+export interface QuizContextValue {
   allQuizCount: number;
   isFinished: boolean;
   wrongQuizzes: IWrongQuiz[];
   quizCount: QuizCount;
   currentQuiz: CurrentQuiz;
   match: (quiz: IQuiz | null, selectedAnswer: string | null) => boolean;
-  setNewQuizzes: (newQuizzes: IQuiz[]) => void;
+  createQuizzes: () => void;
   goNextQuiz: (selectedAnswer: string) => void;
 }

@@ -1,19 +1,14 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { IQuiz, IWrongQuiz } from "~/lib/models";
-import { QuizStorage } from "~/modules/storage";
 import { initialQuizContext } from "./state";
+import { QuizContextProps } from "./types";
 
 const QuizContext = React.createContext(initialQuizContext);
 
 export const useQuiz = () => useContext(QuizContext);
 
-export const QuizContextProvider = ({
-  children,
-  hasStorage = true,
-}: {
-  children: React.ReactNode;
-  hasStorage?: boolean;
-}) => {
+export const QuizContextProvider = ({ children, quizService }: QuizContextProps) => {
+  // loading 추가하자.
   const [quizzes, setQuizzes] = useState<IQuiz[]>([]);
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [wrongQuizIndexNumbers, setWrongQuizIndexNumbers] = useState<number[]>([]);
@@ -59,52 +54,42 @@ export const QuizContextProvider = ({
     return quiz.correct_answer === selectedAnswer;
   }, []);
 
-  const setNewQuizzes = useCallback(
-    (newQuizzes: IQuiz[]) => {
-      setQuizzes(newQuizzes);
-      setCurrentQuizIndex(0);
-      setWrongQuizIndexNumbers([]);
+  const fetchData = useCallback(async () => {
+    const { quizzesData, currentIndexData, wrongQuizIndexNumbersData } =
+      await quizService.getData();
+    setQuizzes(quizzesData);
+    setCurrentQuizIndex(currentIndexData);
+    setWrongQuizIndexNumbers(wrongQuizIndexNumbersData);
+  }, [quizService]);
 
-      if (hasStorage) {
-        QuizStorage.setQuizzesData(newQuizzes);
-        QuizStorage.setCurrentIndexData(0);
-        QuizStorage.setWrongQuizIndexNumbersData([]);
-      }
-    },
-    [hasStorage],
-  );
+  const createQuizzes = useCallback(async () => {
+    await quizService.generateQuizzes();
+    await fetchData();
+  }, [quizService, fetchData]);
 
-  const setWrongAnswers = useCallback(() => {
+  const setWrongAnswers = useCallback(async () => {
     const nextWrongQuizIndexNumbers = [...wrongQuizIndexNumbers, currentQuizIndex].sort(
       (a, b) => a - b,
     );
     setWrongQuizIndexNumbers(nextWrongQuizIndexNumbers);
-    if (hasStorage) {
-      QuizStorage.setWrongQuizIndexNumbersData(nextWrongQuizIndexNumbers);
-    }
-  }, [currentQuizIndex, wrongQuizIndexNumbers, hasStorage]);
+    await quizService.setWrongQuizIndexNumbersData(nextWrongQuizIndexNumbers);
+  }, [currentQuizIndex, wrongQuizIndexNumbers, quizService]);
 
   const goNextQuiz = useCallback(
-    (selectedAnswer: string) => {
+    async (selectedAnswer: string) => {
       if (!match(currentQuiz.quiz, selectedAnswer)) {
         setWrongAnswers();
       }
       const nextQuizIndex = currentQuiz.number;
       setCurrentQuizIndex(nextQuizIndex);
-      if (hasStorage) {
-        QuizStorage.setCurrentIndexData(nextQuizIndex);
-      }
+      await quizService.setCurrentIndexData(nextQuizIndex);
     },
-    [currentQuiz, match, setWrongAnswers, hasStorage],
+    [currentQuiz, match, setWrongAnswers, quizService],
   );
 
   useEffect(() => {
-    if (hasStorage) {
-      setQuizzes(QuizStorage.getQuizzesData());
-      setCurrentQuizIndex(QuizStorage.getCurrentIndexData());
-      setWrongQuizIndexNumbers(QuizStorage.getWrongQuizIndexNumbersData());
-    }
-  }, [hasStorage]);
+    fetchData();
+  }, [fetchData]);
 
   const contextValue = useMemo(
     () => ({
@@ -113,7 +98,7 @@ export const QuizContextProvider = ({
       wrongQuizzes,
       quizCount,
       currentQuiz,
-      setNewQuizzes,
+      createQuizzes,
       goNextQuiz,
       match,
     }),
@@ -123,7 +108,7 @@ export const QuizContextProvider = ({
       wrongQuizzes,
       quizCount,
       currentQuiz,
-      setNewQuizzes,
+      createQuizzes,
       goNextQuiz,
       match,
     ],

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Loading, Text } from "~/components/atom";
 import { useQuiz } from "~/contexts/quiz";
-import quizApi from "~/services/quiz";
 import styled from "styled-components";
 import { PALETTE } from "~/styles/theme";
 import { ROUTE_PATHS } from "~/router/paths";
@@ -11,23 +10,15 @@ import { TimeStorage } from "~/modules/storage";
 const HomePage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const { setNewQuizzes } = useQuiz();
-
-  const fetchQuizzes = async () => {
-    setLoading(true);
-    const { results: newQuizzes } = await quizApi.getQuizzes();
-    setNewQuizzes(newQuizzes);
-    setLoading(false);
-  };
-
-  const quizStart = () => {
-    TimeStorage.setStartTimeData();
-    navigate(ROUTE_PATHS.QUIZ);
-  };
+  const { createQuizzes } = useQuiz();
 
   const handleClickStart = async () => {
-    await fetchQuizzes();
-    quizStart();
+    setLoading(true);
+    await createQuizzes();
+    setLoading(false);
+
+    TimeStorage.setStartTimeData();
+    navigate(ROUTE_PATHS.QUIZ);
   };
 
   return (

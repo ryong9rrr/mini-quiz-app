@@ -1,6 +1,6 @@
-import { IQuizContext } from "./types";
+import { QuizContextValue } from "./types";
 
-export const initialQuizContext: IQuizContext = {
+export const initialQuizContext: QuizContextValue = {
   allQuizCount: 0,
   isFinished: false,
   wrongQuizzes: [],
@@ -13,7 +13,7 @@ export const initialQuizContext: IQuizContext = {
     quiz: null,
     isLast: false,
   },
-  setNewQuizzes() {
+  createQuizzes() {
     return;
   },
   goNextQuiz() {
