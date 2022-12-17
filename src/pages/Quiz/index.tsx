@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Spacer } from "~/components/atom";
+import styled from "styled-components";
+import { Button, Loading, Spacer } from "~/components/atom";
 import { RedirectionGuide } from "~/components/common";
 import { CurrentQuiz, QuizFeedback, QuizProgress } from "~/components/quiz";
 import { useQuiz } from "~/contexts/quiz";
@@ -8,7 +9,7 @@ import { ROUTE_PATHS } from "~/router/paths";
 
 const QuizPage = () => {
   const navigate = useNavigate();
-  const { allQuizCount, currentQuiz, goNextQuiz, match } = useQuiz();
+  const { loading, allQuizCount, currentQuiz, goNextQuiz, match } = useQuiz();
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const isSelectedAnswer = typeof selectedAnswer === "string";
 
@@ -29,6 +30,14 @@ const QuizPage = () => {
   useEffect(() => {
     setSelectedAnswer(null);
   }, [currentQuiz.number]);
+
+  if (loading) {
+    return (
+      <LoadingContainer>
+        <Loading />
+      </LoadingContainer>
+    );
+  }
 
   if (!currentQuiz.quiz) {
     return (
@@ -67,3 +76,10 @@ const QuizPage = () => {
 };
 
 export default QuizPage;
+
+const LoadingContainer = styled.div`
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

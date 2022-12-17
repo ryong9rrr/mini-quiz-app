@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Button, Text } from "~/components/atom";
+import { Button, Loading, Text } from "~/components/atom";
 import { RedirectionGuide } from "~/components/common";
 import { QuizChart, QuizResult } from "~/components/quiz";
 import { convertTime } from "~/lib/utils";
@@ -10,12 +10,20 @@ import { ROUTE_PATHS } from "~/router/paths";
 
 const ResultPage = () => {
   const navigate = useNavigate();
-  const { isFinished, quizCount, timeRate } = useQuiz();
+  const { loading, isFinished, quizCount, timeRate } = useQuiz();
   const [hour, min, sec] = convertTime(timeRate);
 
   const handleClickNewQuiz = () => {
     navigate(ROUTE_PATHS.HOME);
   };
+
+  if (loading) {
+    return (
+      <LoadingContainer>
+        <Loading />
+      </LoadingContainer>
+    );
+  }
 
   if (!isFinished) {
     return (
@@ -51,4 +59,11 @@ const ButtonContainer = styled.div`
   margin-top: 20px;
   display: flex;
   justify-content: center;
+`;
+
+const LoadingContainer = styled.div`
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

@@ -1,12 +1,21 @@
 import React from "react";
-import { Spacer, Text } from "~/components/atom";
+import styled from "styled-components";
+import { Loading, Spacer, Text } from "~/components/atom";
 import { RedirectionGuide } from "~/components/common";
 import { CheckNote } from "~/components/quiz";
 import { useQuiz } from "~/contexts/quiz";
 import { ROUTE_PATHS } from "~/router/paths";
 
 const CheckNotePage = () => {
-  const { wrongQuizzes, isFinished } = useQuiz();
+  const { loading, wrongQuizzes, isFinished } = useQuiz();
+
+  if (loading) {
+    return (
+      <LoadingContainer>
+        <Loading />
+      </LoadingContainer>
+    );
+  }
 
   if (!isFinished) {
     return (
@@ -30,3 +39,10 @@ const CheckNotePage = () => {
 };
 
 export default CheckNotePage;
+
+const LoadingContainer = styled.div`
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
