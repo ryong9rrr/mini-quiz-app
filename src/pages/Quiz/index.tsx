@@ -10,7 +10,7 @@ import { ROUTE_PATHS } from "~/router/paths";
 
 const QuizPage = () => {
   const navigate = useNavigate();
-  const { quizzes, currectQuiz, goNextQuiz } = useQuiz();
+  const { allQuizCount, currectQuiz, goNextQuiz } = useQuiz();
   const { quiz, number: quizNumber, isLast } = currectQuiz;
 
   const handleClickNextQuiz = (isSelected: boolean, isCorrect: boolean) => {
@@ -36,7 +36,7 @@ const QuizPage = () => {
 
   return (
     <Container>
-      <QuizProgress allQuizCount={quizzes.length} currentQuizNumber={quizNumber} />
+      <QuizProgress allQuizCount={allQuizCount} currentQuizNumber={quizNumber} />
       <Spacer height={20} />
       <Quiz
         quizNumber={quizNumber}

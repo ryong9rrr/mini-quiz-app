@@ -3,7 +3,7 @@ import { IQuiz, IWrongQuiz } from "../../lib/models";
 import { QuizStorage } from "../storage";
 
 interface IQuizContext {
-  quizzes: IQuiz[];
+  allQuizCount: number;
   isFinished: boolean;
   wrongQuizzes: IWrongQuiz[];
   quizCount: {
@@ -21,7 +21,7 @@ interface IQuizContext {
 }
 
 const initialQuizContext: IQuizContext = {
-  quizzes: [],
+  allQuizCount: 0,
   isFinished: false,
   wrongQuizzes: [],
   quizCount: {
@@ -60,6 +60,10 @@ export const QuizContextProvider = ({
   const [quizzes, setQuizzes] = useState<IQuiz[]>([]);
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [wrongQuizIndexNumbers, setWrongQuizIndexNumbers] = useState<number[]>([]);
+
+  const allQuizCount = useMemo(() => {
+    return quizzes.length;
+  }, [quizzes]);
 
   const wrongQuizzes: IWrongQuiz[] = useMemo(() => {
     return wrongQuizIndexNumbers.map((indexNumber) => ({
@@ -144,7 +148,7 @@ export const QuizContextProvider = ({
 
   const contextValue = useMemo(
     () => ({
-      quizzes,
+      allQuizCount,
       isFinished,
       wrongQuizzes,
       quizCount,
@@ -154,7 +158,7 @@ export const QuizContextProvider = ({
       isCorrect,
     }),
     [
-      quizzes,
+      allQuizCount,
       isFinished,
       wrongQuizzes,
       quizCount,
