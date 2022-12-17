@@ -12,7 +12,7 @@ export const QuizContextProvider = ({ children, quizService }: QuizContextProps)
   const [quizzes, setQuizzes] = useState<IQuiz[]>([]);
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [wrongQuizIndexNumbers, setWrongQuizIndexNumbers] = useState<number[]>([]);
-  const [timeRate, setTimeRate] = useState(0);
+  const [timeRate, setTimeRate] = useState<number | null>(null);
 
   const allQuizCount = useMemo(() => {
     return quizzes.length;
@@ -55,16 +55,21 @@ export const QuizContextProvider = ({ children, quizService }: QuizContextProps)
     return quiz.correct_answer === selectedAnswer;
   }, []);
 
+  const fetchTimeRate = useCallback(async () => {
+    const updatedRate = await quizService.getRate();
+    setTimeRate(updatedRate);
+  }, [quizService]);
+
   const fetchData = useCallback(async () => {
     setLoading(true);
-    const { quizzesData, currentIndexData, wrongQuizIndexNumbersData, timeRateData } =
+    const { quizzesData, currentIndexData, wrongQuizIndexNumbersData } =
       await quizService.getData();
+    await fetchTimeRate();
     setQuizzes(quizzesData);
     setCurrentQuizIndex(currentIndexData);
     setWrongQuizIndexNumbers(wrongQuizIndexNumbersData);
-    setTimeRate(timeRateData);
     setLoading(false);
-  }, [quizService]);
+  }, [quizService, fetchTimeRate]);
 
   const createQuizzes = useCallback(async () => {
     await quizService.generateQuizzes();
@@ -87,8 +92,9 @@ export const QuizContextProvider = ({ children, quizService }: QuizContextProps)
       const nextQuizIndex = currentQuiz.number;
       setCurrentQuizIndex(nextQuizIndex);
       await quizService.setCurrentIndexData(nextQuizIndex);
+      await fetchTimeRate();
     },
-    [currentQuiz, match, setWrongAnswers, quizService],
+    [currentQuiz, match, setWrongAnswers, quizService, fetchTimeRate],
   );
 
   useEffect(() => {

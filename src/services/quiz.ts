@@ -45,17 +45,20 @@ export default class QuizService extends Api implements QuizServiceInterface {
     await this.setStartTime();
   }
 
+  async getRate() {
+    const rate = await this.getTimeRate();
+    return rate;
+  }
+
   async getData() {
     const quizzesData = await this.getQuizzesData();
     const currentIndexData = await this.getCurrentIndexData();
     const wrongQuizIndexNumbersData = await this.getWrongQuizIndexNumbersData();
-    const timeRateData = await this.getTimeRate();
 
     return {
       quizzesData,
       currentIndexData,
       wrongQuizIndexNumbersData,
-      timeRateData,
     };
   }
 
