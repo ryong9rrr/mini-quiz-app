@@ -19,6 +19,7 @@ export interface QuizContextProps {
 }
 
 export interface QuizContextValue {
+  loading: boolean;
   allQuizCount: number;
   isFinished: boolean;
   wrongQuizzes: IWrongQuiz[];

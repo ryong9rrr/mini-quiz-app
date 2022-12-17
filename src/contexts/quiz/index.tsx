@@ -8,7 +8,7 @@ const QuizContext = React.createContext(initialQuizContext);
 export const useQuiz = () => useContext(QuizContext);
 
 export const QuizContextProvider = ({ children, quizService }: QuizContextProps) => {
-  // loading 추가하자.
+  const [loading, setLoading] = useState(false);
   const [quizzes, setQuizzes] = useState<IQuiz[]>([]);
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [wrongQuizIndexNumbers, setWrongQuizIndexNumbers] = useState<number[]>([]);
@@ -56,12 +56,14 @@ export const QuizContextProvider = ({ children, quizService }: QuizContextProps)
   }, []);
 
   const fetchData = useCallback(async () => {
+    setLoading(true);
     const { quizzesData, currentIndexData, wrongQuizIndexNumbersData, timeRateData } =
       await quizService.getData();
     setQuizzes(quizzesData);
     setCurrentQuizIndex(currentIndexData);
     setWrongQuizIndexNumbers(wrongQuizIndexNumbersData);
     setTimeRate(timeRateData);
+    setLoading(false);
   }, [quizService]);
 
   const createQuizzes = useCallback(async () => {
@@ -95,6 +97,7 @@ export const QuizContextProvider = ({ children, quizService }: QuizContextProps)
 
   const contextValue = useMemo(
     () => ({
+      loading,
       timeRate,
       allQuizCount,
       isFinished,
@@ -106,6 +109,7 @@ export const QuizContextProvider = ({ children, quizService }: QuizContextProps)
       match,
     }),
     [
+      loading,
       timeRate,
       allQuizCount,
       isFinished,

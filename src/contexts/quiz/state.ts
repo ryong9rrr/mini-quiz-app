@@ -1,6 +1,7 @@
 import { QuizContextValue } from "./types";
 
 export const initialQuizContext: QuizContextValue = {
+  loading: false,
   allQuizCount: 0,
   timeRate: 0,
   isFinished: false,
