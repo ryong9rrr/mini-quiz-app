@@ -3,13 +3,10 @@ import { Spacer, Text } from "~/components/atom";
 import { RedirectionGuide } from "~/components/common";
 import { CheckNote } from "~/components/quiz";
 import { useQuiz } from "~/modules/contexts/quiz";
-import { QuizManager } from "~/modules/manager";
 import { ROUTE_PATHS } from "~/router/paths";
 
 const CheckNotePage = () => {
-  const { quizzes, currentQuizIndex, wrongQuizIndexNumbers } = useQuiz();
-  const isFinished = QuizManager.isFinished(quizzes.length, currentQuizIndex);
-  const wrongQuizzes = QuizManager.getWrongQuizzes(wrongQuizIndexNumbers, quizzes);
+  const { wrongQuizzes, isFinished } = useQuiz();
 
   if (!isFinished) {
     return (

@@ -6,16 +6,12 @@ import { RedirectionGuide } from "~/components/common";
 import { QuizChart, QuizResult } from "~/components/quiz";
 import { getTime } from "~/lib/utils";
 import { useQuiz } from "~/modules/contexts/quiz";
-import { QuizManager } from "~/modules/manager";
 import { TimeStorage } from "~/modules/storage";
 import { ROUTE_PATHS } from "~/router/paths";
 
 const ResultPage = () => {
   const navigate = useNavigate();
-  const { quizzes, currentQuizIndex, wrongQuizIndexNumbers } = useQuiz();
-  const isFinished = QuizManager.isFinished(quizzes.length, currentQuizIndex);
-  const inCorrectCount = QuizManager.getWrongQuizzes(wrongQuizIndexNumbers, quizzes).length;
-  const correctCount = quizzes.length - inCorrectCount;
+  const { isFinished, quizCount } = useQuiz();
   const [hour, min, sec] = getTime(TimeStorage.getTimeRate());
 
   const handleClickNewQuiz = () => {
@@ -39,10 +35,10 @@ const ResultPage = () => {
       </Text>
       <QuizResult
         time={{ hour, min, sec }}
-        correctCount={correctCount}
-        inCorrectCount={inCorrectCount}
+        correctCount={quizCount.correct}
+        inCorrectCount={quizCount.inCorrect}
       />
-      <QuizChart inCorrectCount={inCorrectCount} correctCount={correctCount} />
+      <QuizChart correctCount={quizCount.correct} inCorrectCount={quizCount.inCorrect} />
       <ButtonContainer>
         <Button onClick={handleClickNewQuiz}>새로운 퀴즈 풀기</Button>
       </ButtonContainer>

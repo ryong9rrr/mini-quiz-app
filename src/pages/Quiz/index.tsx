@@ -10,10 +10,8 @@ import { ROUTE_PATHS } from "~/router/paths";
 
 const QuizPage = () => {
   const navigate = useNavigate();
-  const { quizzes, currentQuizIndex, goNextQuiz } = useQuiz();
-  const currentQuiz = quizzes[currentQuizIndex];
-  const currentQuizNumber = currentQuizIndex + 1;
-  const isLast = currentQuizIndex + 1 === quizzes.length;
+  const { quizzes, currectQuiz, goNextQuiz } = useQuiz();
+  const { quiz, number: quizNumber, isLast } = currectQuiz;
 
   const handleClickNextQuiz = (isSelected: boolean, isCorrect: boolean) => {
     if (!isSelected) {
@@ -26,7 +24,7 @@ const QuizPage = () => {
     }
   };
 
-  if (!currentQuiz) {
+  if (!quiz) {
     return (
       <RedirectionGuide
         text="✋ 풀고 있는 퀴즈가 없어요!"
@@ -38,12 +36,12 @@ const QuizPage = () => {
 
   return (
     <Container>
-      <QuizProgress allQuizCount={quizzes.length} currentQuizNumber={currentQuizNumber} />
+      <QuizProgress allQuizCount={quizzes.length} currentQuizNumber={quizNumber} />
       <Spacer height={20} />
       <Quiz
-        quizNumber={currentQuizNumber}
+        quizNumber={quizNumber}
         isLast={isLast}
-        currentQuiz={currentQuiz}
+        currentQuiz={quiz}
         onClickNextQuiz={handleClickNextQuiz}
       />
     </Container>

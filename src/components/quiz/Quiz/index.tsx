@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Button, Spacer, Text } from "~/components/atom";
 import { IQuiz } from "~/lib/models";
-import { QuizManager } from "~/modules/manager";
+import { useQuiz } from "~/modules/contexts/quiz";
 import QuizFeedback from "../QuizFeedback";
 import QuizRadioGroup from "../QuizRadioGroup";
 
@@ -14,8 +14,10 @@ interface QuizProps {
 }
 
 const Quiz = ({ quizNumber, isLast, currentQuiz, onClickNextQuiz }: QuizProps) => {
+  // 여기서 훅을 부르면 안됨.
+  const { isCorrect } = useQuiz();
   const [selectedAnswer, setSelectedAnswer] = useState("");
-  const isCorrect = QuizManager.isCorrect(currentQuiz, selectedAnswer);
+  const correctResult = isCorrect(currentQuiz, selectedAnswer);
   const isSelected = !!selectedAnswer;
   const nextButtonDisabled = !selectedAnswer;
 
@@ -24,7 +26,7 @@ const Quiz = ({ quizNumber, isLast, currentQuiz, onClickNextQuiz }: QuizProps) =
   };
 
   const handleClickNextQuiz = () => {
-    onClickNextQuiz(isSelected, isCorrect);
+    onClickNextQuiz(isSelected, correctResult);
   };
 
   useEffect(() => {
@@ -33,7 +35,7 @@ const Quiz = ({ quizNumber, isLast, currentQuiz, onClickNextQuiz }: QuizProps) =
 
   return (
     <>
-      {isSelected ? <QuizFeedback isCorrect={isCorrect} height={40} /> : <Spacer height={40} />}
+      {isSelected ? <QuizFeedback isCorrect={correctResult} height={40} /> : <Spacer height={40} />}
       <Container>
         <>
           <Text bold size="xlg">
