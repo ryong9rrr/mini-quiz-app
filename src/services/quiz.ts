@@ -59,10 +59,6 @@ export default class QuizService extends Api implements QuizServiceInterface {
     };
   }
 
-  async setQuizzesData(quizzes: IQuiz[]) {
-    await fakePromise(() => this.dataBase.setData(QUIZZES, quizzes));
-  }
-
   async setCurrentIndexData(number: number) {
     await fakePromise(() => this.dataBase.setData(CURRENT_QUIZ_INDEX, number));
     await this.setEndTimeData();
@@ -70,6 +66,10 @@ export default class QuizService extends Api implements QuizServiceInterface {
 
   async setWrongQuizIndexNumbersData(numbers: number[]) {
     await fakePromise(() => this.dataBase.setData(WRONG_QUIZ_INDEX_NUMBERS, numbers));
+  }
+
+  private async setQuizzesData(quizzes: IQuiz[]) {
+    await fakePromise(() => this.dataBase.setData(QUIZZES, quizzes));
   }
 
   private async getTimeRate(): Promise<number> {
