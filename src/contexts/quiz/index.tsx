@@ -1,9 +1,9 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { IQuiz, IWrongQuiz } from "~/lib/models";
-import { initialQuizContext } from "./state";
+import { initialQuizContextValue } from "./state";
 import { QuizContextProps } from "./types";
 
-const QuizContext = React.createContext(initialQuizContext);
+const QuizContext = React.createContext(initialQuizContextValue);
 
 export const useQuiz = () => useContext(QuizContext);
 
