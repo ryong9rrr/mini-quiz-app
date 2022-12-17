@@ -24,6 +24,7 @@ export interface QuizContextValue {
   wrongQuizzes: IWrongQuiz[];
   quizCount: QuizCount;
   currentQuiz: CurrentQuiz;
+  timeRate: number;
   match: (quiz: IQuiz | null, selectedAnswer: string | null) => boolean;
   createQuizzes: () => void;
   goNextQuiz: (selectedAnswer: string) => void;

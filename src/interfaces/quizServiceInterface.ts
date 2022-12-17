@@ -7,6 +7,7 @@ export default interface QuizServiceInterface {
     quizzesData: IQuiz[];
     currentIndexData: number;
     wrongQuizIndexNumbersData: number[];
+    timeRateData: number;
   }>;
 
   setQuizzesData(quizzes: IQuiz[]): Promise<void>;

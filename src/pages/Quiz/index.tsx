@@ -4,7 +4,6 @@ import { Button, Spacer } from "~/components/atom";
 import { RedirectionGuide } from "~/components/common";
 import { CurrentQuiz, QuizFeedback, QuizProgress } from "~/components/quiz";
 import { useQuiz } from "~/contexts/quiz";
-import { TimeStorage } from "~/modules/storage";
 import { ROUTE_PATHS } from "~/router/paths";
 
 const QuizPage = () => {
@@ -23,7 +22,6 @@ const QuizPage = () => {
     }
     goNextQuiz(selectedAnswer);
     if (currentQuiz.isLast) {
-      TimeStorage.setEndTimeData();
       navigate(ROUTE_PATHS.RESULT);
     }
   };

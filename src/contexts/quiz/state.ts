@@ -2,6 +2,7 @@ import { QuizContextValue } from "./types";
 
 export const initialQuizContext: QuizContextValue = {
   allQuizCount: 0,
+  timeRate: 0,
   isFinished: false,
   wrongQuizzes: [],
   quizCount: {

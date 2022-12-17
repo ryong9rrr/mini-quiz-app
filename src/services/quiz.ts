@@ -5,6 +5,8 @@ import { IQuiz, QuizType } from "../lib/models";
 const QUIZZES = "prev-quizzes";
 const CURRENT_QUIZ_INDEX = "prev-currentQuizIndex";
 const WRONG_QUIZ_INDEX_NUMBERS = "prev-wrongQuizIndexNumbers";
+const START_TIME = "start-time";
+const END_TIME = "end-time";
 
 type Response = {
   data: {
@@ -37,20 +39,23 @@ export default class QuizService extends Api implements QuizServiceInterface {
       throw new Error("data is nothing. Probably url is wrong.");
     }
 
-    this.setQuizzesData(response.data.results);
-    this.setWrongQuizIndexNumbersData([]);
-    this.setCurrentIndexData(0);
+    await this.setQuizzesData(response.data.results);
+    await this.setWrongQuizIndexNumbersData([]);
+    await this.setCurrentIndexData(0);
+    await this.setStartTime();
   }
 
   async getData() {
     const quizzesData = await this.getQuizzesData();
     const currentIndexData = await this.getCurrentIndexData();
     const wrongQuizIndexNumbersData = await this.getWrongQuizIndexNumbersData();
+    const timeRateData = await this.getTimeRate();
 
     return {
       quizzesData,
       currentIndexData,
       wrongQuizIndexNumbersData,
+      timeRateData,
     };
   }
 
@@ -60,10 +65,25 @@ export default class QuizService extends Api implements QuizServiceInterface {
 
   async setCurrentIndexData(number: number) {
     await fakePromise(() => this.dataBase.setData(CURRENT_QUIZ_INDEX, number));
+    await this.setEndTimeData();
   }
 
   async setWrongQuizIndexNumbersData(numbers: number[]) {
     await fakePromise(() => this.dataBase.setData(WRONG_QUIZ_INDEX_NUMBERS, numbers));
+  }
+
+  private async getTimeRate(): Promise<number> {
+    const endTime = await fakePromise(() => this.dataBase.getData(END_TIME, 0));
+    const startTime = await fakePromise(() => this.dataBase.getData(START_TIME, 0));
+    return Math.floor((endTime - startTime) / 1000);
+  }
+
+  private async setStartTime() {
+    await fakePromise(() => this.dataBase.setData(START_TIME, Date.now()));
+  }
+
+  private async setEndTimeData() {
+    await fakePromise(() => this.dataBase.setData(END_TIME, Date.now()));
   }
 
   private async getQuizzesData() {

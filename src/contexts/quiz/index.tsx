@@ -12,6 +12,7 @@ export const QuizContextProvider = ({ children, quizService }: QuizContextProps)
   const [quizzes, setQuizzes] = useState<IQuiz[]>([]);
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [wrongQuizIndexNumbers, setWrongQuizIndexNumbers] = useState<number[]>([]);
+  const [timeRate, setTimeRate] = useState(0);
 
   const allQuizCount = useMemo(() => {
     return quizzes.length;
@@ -55,11 +56,12 @@ export const QuizContextProvider = ({ children, quizService }: QuizContextProps)
   }, []);
 
   const fetchData = useCallback(async () => {
-    const { quizzesData, currentIndexData, wrongQuizIndexNumbersData } =
+    const { quizzesData, currentIndexData, wrongQuizIndexNumbersData, timeRateData } =
       await quizService.getData();
     setQuizzes(quizzesData);
     setCurrentQuizIndex(currentIndexData);
     setWrongQuizIndexNumbers(wrongQuizIndexNumbersData);
+    setTimeRate(timeRateData);
   }, [quizService]);
 
   const createQuizzes = useCallback(async () => {
@@ -93,6 +95,7 @@ export const QuizContextProvider = ({ children, quizService }: QuizContextProps)
 
   const contextValue = useMemo(
     () => ({
+      timeRate,
       allQuizCount,
       isFinished,
       wrongQuizzes,
@@ -103,6 +106,7 @@ export const QuizContextProvider = ({ children, quizService }: QuizContextProps)
       match,
     }),
     [
+      timeRate,
       allQuizCount,
       isFinished,
       wrongQuizzes,

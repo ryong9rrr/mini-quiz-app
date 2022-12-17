@@ -5,7 +5,6 @@ import { useQuiz } from "~/contexts/quiz";
 import styled from "styled-components";
 import { PALETTE } from "~/styles/theme";
 import { ROUTE_PATHS } from "~/router/paths";
-import { TimeStorage } from "~/modules/storage";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -16,8 +15,6 @@ const HomePage = () => {
     setLoading(true);
     await createQuizzes();
     setLoading(false);
-
-    TimeStorage.setStartTimeData();
     navigate(ROUTE_PATHS.QUIZ);
   };
 
