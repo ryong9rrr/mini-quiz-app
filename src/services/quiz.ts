@@ -1,5 +1,5 @@
-import { Api } from "../core";
-import { IQuiz, QuizType } from "../models";
+import { Api } from "../lib/core";
+import { IQuiz, QuizType } from "../lib/models";
 
 type ResponseData = {
   response_code: number;

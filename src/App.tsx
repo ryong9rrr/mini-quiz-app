@@ -1,6 +1,6 @@
 import React from "react";
 import { Layout } from "./components/common";
-import { QuizContextProvider } from "./modules/contexts/quiz";
+import { QuizContextProvider } from "./contexts/quiz";
 import Router from "./router";
 
 const App = () => {

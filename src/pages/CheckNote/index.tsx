@@ -2,7 +2,7 @@ import React from "react";
 import { Spacer, Text } from "~/components/atom";
 import { RedirectionGuide } from "~/components/common";
 import { CheckNote } from "~/components/quiz";
-import { useQuiz } from "~/modules/contexts/quiz";
+import { useQuiz } from "~/contexts/quiz";
 import { ROUTE_PATHS } from "~/router/paths";
 
 const CheckNotePage = () => {

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Loading, Text } from "~/components/atom";
-import { useQuiz } from "~/modules/contexts/quiz";
-import quizApi from "~/lib/services/quiz";
+import { useQuiz } from "~/contexts/quiz";
+import quizApi from "~/services/quiz";
 import styled from "styled-components";
 import { PALETTE } from "~/styles/theme";
 import { ROUTE_PATHS } from "~/router/paths";

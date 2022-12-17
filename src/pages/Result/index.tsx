@@ -5,7 +5,7 @@ import { Button, Text } from "~/components/atom";
 import { RedirectionGuide } from "~/components/common";
 import { QuizChart, QuizResult } from "~/components/quiz";
 import { getTime } from "~/lib/utils";
-import { useQuiz } from "~/modules/contexts/quiz";
+import { useQuiz } from "~/contexts/quiz";
 import { TimeStorage } from "~/modules/storage";
 import { ROUTE_PATHS } from "~/router/paths";
 

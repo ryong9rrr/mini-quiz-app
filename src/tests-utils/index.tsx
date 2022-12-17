@@ -1,6 +1,6 @@
 import { act } from "@testing-library/react";
 import React from "react";
-import { QuizContextProvider, useQuiz } from "~/modules/contexts/quiz";
+import { QuizContextProvider, useQuiz } from "~/contexts/quiz";
 import { mockQuizzes } from "./mock";
 
 export const wrapper = ({ children }: { children: React.ReactNode }) => (

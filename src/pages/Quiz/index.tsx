@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Spacer } from "~/components/atom";
 import { RedirectionGuide } from "~/components/common";
 import { CurrentQuiz, QuizFeedback, QuizProgress } from "~/components/quiz";
-import { useQuiz } from "~/modules/contexts/quiz";
+import { useQuiz } from "~/contexts/quiz";
 import { TimeStorage } from "~/modules/storage";
 import { ROUTE_PATHS } from "~/router/paths";
 
