@@ -9,8 +9,7 @@ import { ROUTE_PATHS } from "~/router/paths";
 
 const QuizPage = () => {
   const navigate = useNavigate();
-  // isCorrect는 match라는 네이밍이 더 나을듯.
-  const { allQuizCount, currentQuiz, goNextQuiz, isCorrect } = useQuiz();
+  const { allQuizCount, currentQuiz, goNextQuiz, match } = useQuiz();
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const isSelectedAnswer = typeof selectedAnswer === "string";
   const buttonDisabled = !selectedAnswer;
@@ -23,7 +22,7 @@ const QuizPage = () => {
     if (!isSelectedAnswer) {
       return;
     }
-    goNextQuiz(isCorrect(currentQuiz.quiz, selectedAnswer));
+    goNextQuiz(match(currentQuiz.quiz, selectedAnswer));
     if (currentQuiz.isLast) {
       TimeStorage.setEndTimeData();
       navigate(ROUTE_PATHS.RESULT);
@@ -51,7 +50,7 @@ const QuizPage = () => {
       <Spacer height={20} />
       <QuizFeedback
         isView={isSelectedAnswer}
-        isCorrect={isCorrect(currentQuiz.quiz, selectedAnswer)}
+        isCorrect={match(currentQuiz.quiz, selectedAnswer)}
         height={40}
       />
 

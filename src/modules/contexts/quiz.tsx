@@ -15,9 +15,9 @@ interface IQuizContext {
     quiz: IQuiz | null;
     isLast: boolean;
   };
+  match: (quiz: IQuiz | null, selectedAnswer: string | null) => boolean;
   setNewQuizzes: (newQuizzes: IQuiz[]) => void;
   goNextQuiz: (isAnswered: boolean) => void;
-  isCorrect: (quiz: IQuiz | null, selectedAnswer: string | null) => boolean;
 }
 
 const initialQuizContext: IQuizContext = {
@@ -39,7 +39,7 @@ const initialQuizContext: IQuizContext = {
   goNextQuiz() {
     return;
   },
-  isCorrect() {
+  match() {
     return false;
   },
 };
@@ -93,7 +93,7 @@ export const QuizContextProvider = ({
     };
   }, [quizzes, currentQuizIndex]);
 
-  const isCorrect = useCallback((quiz: IQuiz | null, selectedAnswer: string | null) => {
+  const match = useCallback((quiz: IQuiz | null, selectedAnswer: string | null) => {
     if (!quiz || !selectedAnswer) {
       return false;
     }
@@ -156,7 +156,7 @@ export const QuizContextProvider = ({
       currentQuiz,
       setNewQuizzes,
       goNextQuiz,
-      isCorrect,
+      match,
     }),
     [
       allQuizCount,
@@ -166,7 +166,7 @@ export const QuizContextProvider = ({
       currentQuiz,
       setNewQuizzes,
       goNextQuiz,
-      isCorrect,
+      match,
     ],
   );
 
