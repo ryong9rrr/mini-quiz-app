@@ -1,48 +1,7 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { IQuiz, IWrongQuiz } from "../../lib/models";
-import { QuizStorage } from "../storage";
-
-interface IQuizContext {
-  allQuizCount: number;
-  isFinished: boolean;
-  wrongQuizzes: IWrongQuiz[];
-  quizCount: {
-    inCorrect: number;
-    correct: number;
-  };
-  currentQuiz: {
-    number: number;
-    quiz: IQuiz | null;
-    isLast: boolean;
-  };
-  match: (quiz: IQuiz | null, selectedAnswer: string | null) => boolean;
-  setNewQuizzes: (newQuizzes: IQuiz[]) => void;
-  goNextQuiz: (selectedAnswer: string) => void;
-}
-
-const initialQuizContext: IQuizContext = {
-  allQuizCount: 0,
-  isFinished: false,
-  wrongQuizzes: [],
-  quizCount: {
-    inCorrect: 0,
-    correct: 0,
-  },
-  currentQuiz: {
-    number: 0,
-    quiz: null,
-    isLast: false,
-  },
-  setNewQuizzes() {
-    return;
-  },
-  goNextQuiz() {
-    return;
-  },
-  match() {
-    return false;
-  },
-};
+import { IQuiz, IWrongQuiz } from "~/lib/models";
+import { QuizStorage } from "~/modules/storage";
+import { initialQuizContext } from "./state";
 
 const QuizContext = React.createContext(initialQuizContext);
 
