@@ -1,14 +1,19 @@
 import React from "react";
 import styled from "styled-components";
-import { Text } from "~/components/atom";
+import { Spacer, Text } from "~/components/atom";
 import { PALETTE } from "~/styles/theme";
 
 interface QuizFeedbackProps {
+  isView: boolean;
   isCorrect: boolean;
   height: number;
 }
 
-const QuizFeedback = ({ isCorrect, height }: QuizFeedbackProps) => {
+const QuizFeedback = ({ isView, isCorrect, height }: QuizFeedbackProps) => {
+  if (!isView) {
+    return <Spacer height={40} />;
+  }
+
   return (
     <Container height={height} isCorrect={isCorrect}>
       {isCorrect ? (
@@ -22,7 +27,7 @@ const QuizFeedback = ({ isCorrect, height }: QuizFeedbackProps) => {
 
 export default QuizFeedback;
 
-const Container = styled.div<QuizFeedbackProps>`
+const Container = styled.div<Omit<QuizFeedbackProps, "isView">>`
   margin: 30px auto;
   max-width: 200px;
   min-height: ${({ height }) => height - 52}px;
