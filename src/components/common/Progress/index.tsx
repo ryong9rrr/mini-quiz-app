@@ -1,10 +1,11 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 import styled from "styled-components";
 import { PALETTE } from "~/styles/theme";
 
 interface ProgressProps {
   value: number;
   height?: number;
+  style?: CSSProperties;
 }
 
 const ProgressContainer = styled.div`
